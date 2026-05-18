@@ -48,7 +48,23 @@ export default function Contact() {
   const set = (key: keyof FormData, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    if (!form.email || !form.subject) return;
+
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      setForm({ email: "", subject: "", info: "", projectName: "", projectDetails: "", other: "" });
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <section id="contact" className="py-32 px-8">
