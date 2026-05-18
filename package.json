@@ -16,6 +16,7 @@
     "resend": "^6.12.3"
   },
   "devDependencies": {
+    "@iconify/react": "^6.0.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
