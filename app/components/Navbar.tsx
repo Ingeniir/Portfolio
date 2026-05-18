@@ -14,9 +14,10 @@ export const Navbar = () => {
       <div className="max-w-5xl px-8 py-5 flex items-center justify-between">
         <a
           href="#home"
-          className="text-sm tracking-widest uppercase text-foreground font-medium"
+          className="text-sm tracking-widest uppercase text-foreground font-medium flex items-center gap-2"
         >
-          Hoareau Cédric
+          <img src="/favicon.ico" alt="Logo" className="w-8 h-8" />
+          <span>Hoareau Cédric</span>
         </a>
 
         <ul className="flex items-center gap-10">
