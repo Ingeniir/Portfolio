@@ -8,3 +8,9 @@ J'utilise `Next.js` pour pouvoir utiliser un **API** et pour pouvoir aussi utili
 
 ## Bibliothèque
 Comme framework supplémentaire il y aura `react-motion` pour les petites animations, `resend` qui permettra d'envoyer des mails directement pour communiquer via mon portfolio.
+
+---
+
+## Développement
+
+J'ai commencé par développer la *Navbar* avec un effet **underline** au passage de la souris sur les différents liens. J'ai opter pour un côté minimalist sans trop surcharger de liens.
