@@ -19,38 +19,24 @@ type Category = {
 
 const categories: Category[] = [
   {
-    label: "Python",
+    label: "Langages",
     description:
-      "Mon premier langage, celui que je maîtrise le mieux depuis des années.",
+      "Mes langages de programmation contribuant au développement de mes/vos projets personnels et professionnels.",
     skills: [
       {
         name: "Python",
         level: "Maîtrisé",
         icon: "devicon:python",
         detail:
-          "Mon langage de prédilection depuis mes 15 ans. Je l'utilise pour scripts, automatisation, data et bien plus.",
+          "Programmation polyvalente pour le développement web, la data science et l'automatisation, avec une syntaxe claire et une vaste bibliothèque standard.",
       },
       {
-        name: "NumPy",
-        level: "Avancé",
-        icon: "devicon:numpy",
+        name: "Rust",
+        level: "En apprentissage",
+        icon: "devicon:rust",
         detail:
-          "Manipulation de tableaux multidimensionnels, opérations vectorisées et calcul matriciel pour la data.",
-      },
-      {
-        name: "Pandas",
-        level: "Avancé",
-        icon: "devicon:pandas",
-        detail:
-          "Nettoyage, transformation et exploration de jeux de données avec DataFrames.",
-      },
-      {
-        name: "Matplotlib",
-        level: "Avancé",
-        icon: "devicon:matplotlib",
-        detail:
-          "Visualisation de données : courbes, histogrammes, nuages de points pour l'analyse statistique.",
-      },
+          "Programmation système sécurisée avec gestion de la mémoire et performances élevées.",
+      }
     ],
   },
   {
@@ -74,7 +60,7 @@ const categories: Category[] = [
       },
       {
         name: "React",
-        level: "Avancé",
+        level: "Maîtrisé",
         icon: "devicon:react",
         detail:
           "Composants fonctionnels, hooks, gestion d'état et architecture de projets front-end modernes.",
@@ -94,18 +80,18 @@ const categories: Category[] = [
           "Styling utility-first, design system cohérent et interfaces responsives sans CSS custom.",
       },
       {
-        name: "Motion",
-        level: "Avancé",
-        icon: "devicon:framermotion",
-        detail:
-          "Animations fluides : variants, whileInView, AnimatePresence et transitions gestuelles.",
-      },
-      {
         name: "Prisma",
-        level: "Avancé",
+        level: "En apprentissage",
         icon: "devicon:prisma",
         detail:
           "ORM TypeScript pour modéliser les bases de données et interagir avec PostgreSQL ou SQLite.",
+      },
+      {
+        name: "Supabase",
+        level: "En apprentissage",
+        icon: "devicon:supabase",
+        detail:
+          "Plateforme de développement backend serverless avec base de données PostgreSQL intégrée.",
       },
     ],
   },
