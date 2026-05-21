@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { Icon } from "@iconify/react";
 
 type Project = {
   title: string;
@@ -9,54 +10,41 @@ type Project = {
   href?: string;
   github?: string;
   year: string;
+  icon?: React.ReactNode;
+  status?: boolean;
 };
 
-// ✏️ Ajoute tes projets ici
 const projects: Project[] = [
   {
-    title: "Nom du projet",
+    title: "Databook",
     description:
-      "Une courte description de ce que fait le projet, le problème qu'il résout et ta contribution.",
-    tags: ["Python", "Data Science"],
+      "Application de type notebook adapter pour l'analyse de données, les statistiques et même les prises de notes.",
+    tags: ["React", "Tauri", "Rust", "Python"],
     github: "https://github.com/",
-    year: "2024",
+    year: "2026",
+    icon: <Icon icon="catppuccin:tauri" className="w-6 h-6" />,
+    status: true,
   },
   {
-    title: "Nom du projet",
+    title: "Clip Battle",
     description:
-      "Une courte description de ce que fait le projet, le problème qu'il résout et ta contribution.",
-    tags: ["React", "Next.js"],
-    href: "https://",
+      "Transposer le format ultra-populaire des \"Beat Battle\" de la production musicale vers l'univers du montage vidéo court (TikTok, Reels, Shorts). L'objectif est de créer une plateforme communautaire et gamifiée où les monteurs s'affrontent chaque semaine autour d'un \"Pack de Battle\" imposé : des rushs vidéos bruts, des effets sonores (SFX) obligatoires et une contrainte technique précise (format, durée, style). Un système de vote intégré permet à la communauté d'élire le meilleur montage de la session.",
+    tags: ["Next.js", "Supabase"],
     github: "https://github.com/",
-    year: "2024",
+    year: "2026",
+    icon: <Icon icon="material-symbols:http" className="w-6 h-6" />,
+    status: true,
   },
   {
-    title: "Nom du projet",
+    title: "Snapshot Manager",
     description:
-      "Une courte description de ce que fait le projet, le problème qu'il résout et ta contribution.",
-    tags: ["Statistiques", "Python"],
-    github: "https://github.com/",
-    year: "2025",
+      "Bibliothèque logicielle en Rust dédiée à la gestion d'historique pour une application de prise de notes scientifiques. Ce projet m'a permis d'appliquer des concepts de programmation système (gestion de l'ownership, manipulation asynchrone d'I/O et cycle de vie de la mémoire) pour offrir un moteur de persistance ultra-rapide et tolérant aux pannes, prêt à être interfacé avec un frontend React via Tauri.",
+    tags: ["Rust"],
+    github: "https://github.com/Ingeniir/snapshot_manager",
+    year: "2026",
+    icon: <Icon icon="catppuccin:rust-alt" className="w-6 h-6" />,
   },
 ];
-
-// Icône GitHub
-function IconGithub() {
-  return (
-    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-    </svg>
-  );
-}
-
-// Icône lien externe
-function IconExternal() {
-  return (
-    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-    </svg>
-  );
-}
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
@@ -67,17 +55,22 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative flex flex-col border border-neutral-100 rounded-2xl p-6 bg-white hover:border-neutral-300 transition-all duration-300 hover:shadow-sm"
     >
-      {/* Year badge */}
+      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        {project.icon ? (
+          project.icon
+        ) : (
+          <Icon icon="ph:dev-to-logo-light" className="w-6 h-6" />
+        )}
+      </div>
+
       <span className="text-[11px] uppercase tracking-widest text-neutral-300 mb-4">
         {project.year}
       </span>
 
-      {/* Title */}
       <h3 className="text-base font-semibold text-black mb-2 tracking-tight">
         {project.title}
       </h3>
 
-      {/* Description */}
       <p className="text-sm text-neutral-500 leading-relaxed flex-1 mb-5">
         {project.description}
       </p>
@@ -95,7 +88,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
 
       {/* Links */}
-      <div className="flex items-center gap-4 pt-4 border-t border-neutral-100">
+      <div className="flex items-center gap-4 pt-4 border-t border-neutral-100 w-full">
         {project.github && (
           <a
             href={project.github}
@@ -103,7 +96,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-black transition-colors duration-200"
           >
-            <IconGithub />
+            <Icon icon="mdi:github" className="w-4 h-4" />
             GitHub
           </a>
         )}
@@ -114,9 +107,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-black transition-colors duration-200"
           >
-            <IconExternal />
+            <Icon icon="mdi:external-link" className="w-4 h-4" />
             Voir le projet
           </a>
+        )}
+        {project.status && (
+          <div className="w-full flex items-center justify-end">
+            <span className="flex items-center justify-center px-3 py-1 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-800">
+              En cours
+            </span>
+          </div>
         )}
       </div>
     </motion.div>
@@ -127,7 +127,6 @@ export default function Projects() {
   return (
     <section id="projects" className="py-32 px-8">
       <div className="max-w-5xl mx-auto">
-
         {/* Section label */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -187,7 +186,6 @@ export default function Projects() {
             voir mon GitHub
           </a>
         </motion.p>
-
       </div>
     </section>
   );
