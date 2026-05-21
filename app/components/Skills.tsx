@@ -195,7 +195,6 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
             transition={{ duration: 0.2 }}
             className="absolute left-0 bottom-full mb-2 z-50 w-64 bg-white border border-neutral-100 rounded-xl shadow-md px-4 py-3 pointer-events-none"
           >
-            {/* Arrow */}
             <div className="absolute -bottom-1.5 left-5 w-3 h-3 bg-white border-r border-b border-neutral-100 rotate-45" />
 
             <div className="flex items-center gap-2 mb-1.5">

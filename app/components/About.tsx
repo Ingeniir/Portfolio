@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { Icon } from "@iconify/react";
 
 const facts = [
   { label: "Formation", value: "L2 MIASHS" },
@@ -133,19 +134,7 @@ export function About() {
                 Télécharger mon CV
                 <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-black transition-all duration-300 ease-in-out group-hover:w-full" />
               </span>
-              <svg
-                className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-y-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4"
-                />
-              </svg>
+              <Icon icon="material-symbols:download" className="w-4 h-4 group-hover:translate-y-1 transition-transform duration-200" />
             </motion.a>
           </motion.div>
         </div>

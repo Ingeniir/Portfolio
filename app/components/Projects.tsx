@@ -75,7 +75,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.description}
       </p>
 
-      {/* Tags */}
       <div className="flex flex-wrap gap-1.5 mb-5">
         {project.tags.map((tag) => (
           <span
@@ -87,7 +86,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ))}
       </div>
 
-      {/* Links */}
       <div className="flex items-center gap-4 pt-4 border-t border-neutral-100 w-full">
         {project.github && (
           <a
@@ -127,7 +125,6 @@ export default function Projects() {
   return (
     <section id="projects" className="py-32 px-8">
       <div className="max-w-5xl mx-auto">
-        {/* Section label */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +135,6 @@ export default function Projects() {
           Projets
         </motion.p>
 
-        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -161,14 +157,12 @@ export default function Projects() {
           en cassant, et en recommençant mieux.
         </motion.p>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
             <ProjectCard key={i} project={project} index={i} />
           ))}
         </div>
 
-        {/* Bottom note */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
