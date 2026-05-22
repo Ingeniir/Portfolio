@@ -69,7 +69,6 @@ export default function Contact() {
   return (
     <section id="contact" className="py-32 px-8">
       <div className="max-w-5xl mx-auto">
-        {/* Section label */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +80,6 @@ export default function Contact() {
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-          {/* Left — heading */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -104,7 +102,6 @@ export default function Contact() {
               délais.
             </p>
 
-            {/* Social links */}
             <div className="flex flex-col gap-3">
               {[
                 { label: "GitHub", href: "https://github.com/", icon: "devicon:github" },
@@ -127,7 +124,6 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right — form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -144,7 +140,6 @@ export default function Contact() {
               className="w-full text-sm text-black bg-white border-b border-b-neutral-300 focus:border-b-foreground hover:border-b-foreground px-4 py-3 outline-none transition-colors duration-200 placeholder:text-neutral-300 resize-none"
             />
 
-            {/* Subject selector */}
             <div className="grid grid-cols-3 gap-2">
               {subjects.map((s) => (
                 <button
@@ -166,7 +161,6 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Dynamic fields */}
             <AnimatePresence mode="wait">
               {form.subject === "information" && (
                 <motion.div
@@ -231,7 +225,6 @@ export default function Contact() {
               )}
             </AnimatePresence>
 
-            {/* Submit */}
             <button
               onClick={handleSubmit}
               disabled={!form.email || !form.subject || status === "loading"}
@@ -242,7 +235,6 @@ export default function Contact() {
                 : "Envoyer le message"}
             </button>
 
-            {/* Feedback */}
             <AnimatePresence>
               {status === "success" && (
                 <motion.p

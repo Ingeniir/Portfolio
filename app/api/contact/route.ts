@@ -6,6 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const TO_EMAIL = "hoareau.cedric97470@gmail.com";
 
 export async function POST(req: Request) {
+  console.log("Clé API chargée:", process.env.RESEND_API_KEY ? "OK" : "Non trouvée")
   try {
     const body = await req.json();
     const { email, subject, info, projectName, projectDetails, other } = body;
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
     }
 
     await resend.emails.send({
-      from: "Portfolio <contact@portfolio.com>",
+      from: "Portfolio <onboarding@resend.dev>",
       to: TO_EMAIL,
       replyTo: email,
       subject: subjectLine,
