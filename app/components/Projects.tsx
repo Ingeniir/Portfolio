@@ -20,7 +20,6 @@ const projects: Project[] = [
     description:
       "Application de type notebook adapter pour l'analyse de données, les statistiques et même les prises de notes.",
     tags: ["React", "Tauri", "Rust", "Python"],
-    github: "https://github.com/",
     year: "2026",
     icon: <Icon icon="catppuccin:tauri" className="w-6 h-6" />,
     status: true,
@@ -30,7 +29,6 @@ const projects: Project[] = [
     description:
       "Transposer le format ultra-populaire des \"Beat Battle\" de la production musicale vers l'univers du montage vidéo court (TikTok, Reels, Shorts). L'objectif est de créer une plateforme communautaire et gamifiée où les monteurs s'affrontent chaque semaine autour d'un \"Pack de Battle\" imposé : des rushs vidéos bruts, des effets sonores (SFX) obligatoires et une contrainte technique précise (format, durée, style). Un système de vote intégré permet à la communauté d'élire le meilleur montage de la session.",
     tags: ["Next.js", "Supabase"],
-    github: "https://github.com/",
     year: "2026",
     icon: <Icon icon="material-symbols:http" className="w-6 h-6" />,
     status: true,
