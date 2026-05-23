@@ -104,8 +104,8 @@ export default function Contact() {
 
             <div className="flex flex-col gap-3">
               {[
-                { label: "GitHub", href: "https://github.com/", icon: "devicon:github" },
-                { label: "LinkedIn", href: "https://linkedin.com/in/", icon: "devicon:linkedin" },
+                { label: "GitHub", href: "https://github.com/Ingeniir", icon: "devicon:github" },
+                { label: "LinkedIn", href: "https://linkedin.com/in/cédric-hoareau", icon: "devicon:linkedin" },
               ].map((link) => (
                 <a
                   key={link.label}
