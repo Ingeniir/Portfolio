@@ -1,3 +1,4 @@
+// app/components/Contact.tsx
 "use client";
 
 import { Icon } from "@iconify/react";
@@ -67,7 +68,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 px-8">
+    <section id="contact" className="py-20 md:py-32 px-6 sm:px-8 bg-white">
       <div className="max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -79,7 +80,7 @@ export default function Contact() {
           Contact
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -87,7 +88,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h2
-              className="text-3xl md:text-4xl font-semibold tracking-tight text-black mb-5 leading-snug"
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black mb-5 leading-snug"
               style={{ fontFamily: "'Georgia', serif" }}
             >
               Une idée,
@@ -96,13 +97,13 @@ export default function Contact() {
                 une question ?
               </span>
             </h2>
-            <p className="text-sm text-neutral-400 leading-relaxed mb-8">
+            <p className="text-sm text-neutral-400 leading-relaxed mb-8 max-w-sm">
               Que ce soit pour un projet, une collaboration ou simplement pour
               échanger — je lis tous les messages et réponds dans les meilleurs
               délais.
             </p>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3.5">
               {[
                 { label: "GitHub", href: "https://github.com/Ingeniir", icon: "devicon:github" },
                 { label: "LinkedIn", href: "https://linkedin.com/in/cédric-hoareau", icon: "devicon:linkedin" },
@@ -112,11 +113,11 @@ export default function Contact() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex w-fit text-sm text-black group"
+                  className="relative inline-flex w-fit text-sm text-neutral-600 hover:text-black transition-colors duration-200 group"
                 >
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <span>{link.label}</span>
-                    <Icon icon={link.icon} fontSize={16} />
+                    <Icon icon={link.icon} className="text-base text-neutral-400 group-hover:text-black transition-colors" />
                   </div>
                   <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-black transition-all duration-300 ease-in-out group-hover:w-full" />
                 </a>
@@ -129,31 +130,35 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-5 w-full"
           >
-            {/* Email */}
-            <input
-              type="email"
-              placeholder="Votre adresse email"
-              value={form.email}
-              onChange={(e) => set("email", e.target.value)}
-              className="w-full text-sm text-black bg-white border-b border-b-neutral-300 focus:border-b-foreground hover:border-b-foreground px-4 py-3 outline-none transition-colors duration-200 placeholder:text-neutral-300 resize-none"
-            />
+            <div className="w-full">
+              <input
+                type="email"
+                placeholder="Votre adresse email"
+                value={form.email}
+                onChange={(e) => set("email", e.target.value)}
+                className="w-full text-sm text-black bg-white border-b border-neutral-200 focus:border-black px-1 py-3 outline-none transition-colors duration-200 placeholder:text-neutral-300"
+              />
+            </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
               {subjects.map((s) => (
                 <button
                   key={s.value}
+                  type="button"
                   onClick={() => set("subject", s.value)}
-                  className={`rounded-xl border px-3 py-3 text-left transition-all duration-200 ${
+                  className={`rounded-xl border p-3.5 text-left transition-all duration-200 ${
                     form.subject === s.value
-                      ? "border-black bg-black text-white"
+                      ? "border-black bg-black text-white shadow-sm"
                       : "border-neutral-200 bg-white text-black hover:border-neutral-400"
                   }`}
                 >
-                  <p className="text-xs font-medium">{s.label}</p>
+                  <p className="text-xs font-semibold">{s.label}</p>
                   <p
-                    className={`text-[11px] mt-0.5 ${form.subject === s.value ? "text-neutral-300" : "text-neutral-400"}`}
+                    className={`text-[11px] mt-0.5 leading-tight ${
+                      form.subject === s.value ? "text-neutral-300" : "text-neutral-400"
+                    }`}
                   >
                     {s.description}
                   </p>
@@ -161,103 +166,104 @@ export default function Contact() {
               ))}
             </div>
 
-            <AnimatePresence mode="wait">
-              {form.subject === "information" && (
-                <motion.div
-                  key="information"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <textarea
-                    rows={4}
-                    placeholder="Votre message ou demande d'information..."
-                    value={form.info}
-                    onChange={(e) => set("info", e.target.value)}
-                    className={inputClass}
-                  />
-                </motion.div>
-              )}
+            <div className="overflow-hidden w-full">
+              <AnimatePresence mode="wait">
+                {form.subject === "information" && (
+                  <motion.div
+                    key="information"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <textarea
+                      rows={4}
+                      placeholder="Votre message ou demande d'information..."
+                      value={form.info}
+                      onChange={(e) => set("info", e.target.value)}
+                      className={inputClass}
+                    />
+                  </motion.div>
+                )}
 
-              {form.subject === "projet" && (
-                <motion.div
-                  key="projet"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                  className="flex flex-col gap-3"
-                >
-                  <input
-                    type="text"
-                    placeholder="Nom du projet"
-                    value={form.projectName}
-                    onChange={(e) => set("projectName", e.target.value)}
-                    className={inputClass}
-                  />
-                  <textarea
-                    rows={4}
-                    placeholder="Décrivez votre projet, vos attentes, le contexte..."
-                    value={form.projectDetails}
-                    onChange={(e) => set("projectDetails", e.target.value)}
-                    className={inputClass}
-                  />
-                </motion.div>
-              )}
+                {form.subject === "projet" && (
+                  <motion.div
+                    key="projet"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex flex-col gap-3"
+                  >
+                    <input
+                      type="text"
+                      placeholder="Nom du projet"
+                      value={form.projectName}
+                      onChange={(e) => set("projectName", e.target.value)}
+                      className={inputClass}
+                    />
+                    <textarea
+                      rows={4}
+                      placeholder="Décrivez votre projet, vos attentes, le contexte..."
+                      value={form.projectDetails}
+                      onChange={(e) => set("projectDetails", e.target.value)}
+                      className={inputClass}
+                    />
+                  </motion.div>
+                )}
 
-              {form.subject === "autres" && (
-                <motion.div
-                  key="autres"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <textarea
-                    rows={4}
-                    placeholder="Écrivez ce que vous souhaitez..."
-                    value={form.other}
-                    onChange={(e) => set("other", e.target.value)}
-                    className={inputClass}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
+                {form.subject === "autres" && (
+                  <motion.div
+                    key="autres"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <textarea
+                      rows={4}
+                      placeholder="Écrivez ce que vous souhaitez..."
+                      value={form.other}
+                      onChange={(e) => set("other", e.target.value)}
+                      className={inputClass}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             <button
               onClick={handleSubmit}
               disabled={!form.email || !form.subject || status === "loading"}
-              className="w-full bg-black text-white text-sm font-medium py-3 rounded-xl hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-full bg-black text-white text-sm font-medium py-3 rounded-xl hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed shadow-sm mt-1"
             >
-              {status === "loading"
-                ? "Envoi en cours..."
-                : "Envoyer le message"}
+              {status === "loading" ? "Envoi en cours..." : "Envoyer le message"}
             </button>
 
-            <AnimatePresence>
-              {status === "success" && (
-                <motion.p
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="text-xs text-center text-neutral-500"
-                >
-                  ✓ Message envoyé avec succès. Je vous répondrai rapidement.
-                </motion.p>
-              )}
-              {status === "error" && (
-                <motion.p
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="text-xs text-center text-red-400"
-                >
-                  Une erreur est survenue. Réessayez ou contactez-moi
-                  directement.
-                </motion.p>
-              )}
-            </AnimatePresence>
+            <div className="min-h-5">
+              <AnimatePresence>
+                {status === "success" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="text-xs text-center text-neutral-500 font-medium"
+                  >
+                    ✓ Message envoyé avec succès. Je vous répondrai rapidement.
+                  </motion.p>
+                )}
+                {status === "error" && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="text-xs text-center text-red-500 font-medium"
+                  >
+                    Une erreur est survenue. Réessayez ou utilisez un autre canal.
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         </div>
       </div>

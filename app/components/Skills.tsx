@@ -1,13 +1,20 @@
+// app/components/Skills.tsx
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
 import { Icon } from "@iconify/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useIsDarkMode } from "../hooks/useIsDarkMode";
+
+type Icon = {
+  whiteIcon: string;
+  darkIcon: string;
+};
 
 type Skill = {
   name: string;
   level: "Maîtrisé" | "Avancé" | "En apprentissage";
-  icon: string;
+  icon: Icon;
   detail: string;
 };
 
@@ -21,22 +28,22 @@ const categories: Category[] = [
   {
     label: "Langages",
     description:
-      "Mes langages de programmation contribuant au développement de mes/vos projets personnels et professionnels.",
+      "Mes langages de programmation contribuant au développement de mes projets personnels et professionnels.",
     skills: [
       {
         name: "Python",
         level: "Maîtrisé",
-        icon: "devicon:python",
+        icon: { whiteIcon: "devicon:python", darkIcon: "proicons:python" },
         detail:
           "Programmation polyvalente pour le développement web, la data science et l'automatisation, avec une syntaxe claire et une vaste bibliothèque standard.",
       },
       {
         name: "Rust",
         level: "En apprentissage",
-        icon: "devicon:rust",
+        icon: { whiteIcon: "devicon:rust", darkIcon: "teenyicons:rust-outline" },
         detail:
-          "Programmation système sécurisée avec gestion de la mémoire et performances élevées.",
-      }
+          "Programmation système sécurisée avec gestion de la mémoire sans garbage collector et performances élevées.",
+      },
     ],
   },
   {
@@ -47,51 +54,57 @@ const categories: Category[] = [
       {
         name: "HTML / CSS",
         level: "Maîtrisé",
-        icon: "devicon:html5",
+        icon: { whiteIcon: "devicon:html5", darkIcon: "codex:html" },
         detail:
           "Bases solides : sémantique HTML, mise en page CSS, Flexbox, Grid et responsive design.",
       },
       {
         name: "JavaScript",
         level: "Maîtrisé",
-        icon: "devicon:javascript",
+        icon: {
+          whiteIcon: "devicon:javascript",
+          darkIcon: "ri:javascript-fill",
+        },
         detail:
           "Manipulation du DOM, ES6+, async/await, fetch API et logique applicative côté client.",
       },
       {
         name: "React",
         level: "Maîtrisé",
-        icon: "devicon:react",
+        icon: { whiteIcon: "devicon:react", darkIcon: "akar-icons:react-fill" },
         detail:
           "Composants fonctionnels, hooks, gestion d'état et architecture de projets front-end modernes.",
       },
       {
         name: "Next.js",
         level: "Avancé",
-        icon: "devicon:nextjs",
+        icon: { whiteIcon: "devicon:nextjs", darkIcon: "ri:nextjs-fill" },
         detail:
           "App Router, routes API, Server Components, SSR et déploiement sur Vercel.",
       },
       {
         name: "Tailwind CSS",
         level: "Avancé",
-        icon: "devicon:tailwindcss",
+        icon: {
+          whiteIcon: "devicon:tailwindcss",
+          darkIcon: "mdi:tailwind",
+        },
         detail:
           "Styling utility-first, design system cohérent et interfaces responsives sans CSS custom.",
       },
       {
         name: "Prisma",
         level: "En apprentissage",
-        icon: "devicon:prisma",
+        icon: { whiteIcon: "devicon:prisma", darkIcon: "lineicons:prisma" },
         detail:
           "ORM TypeScript pour modéliser les bases de données et interagir avec PostgreSQL ou SQLite.",
       },
       {
         name: "Supabase",
         level: "En apprentissage",
-        icon: "devicon:supabase",
+        icon: { whiteIcon: "devicon:supabase", darkIcon: "ri:supabase-fill" },
         detail:
-          "Plateforme de développement backend serverless avec base de données PostgreSQL intégrée.",
+          "Le complément idéal pour mes prototypes et projets de type Clip Battle : gestion fluide du stockage et des politiques de sécurité.",
       },
     ],
   },
@@ -103,35 +116,50 @@ const categories: Category[] = [
       {
         name: "Régression linéaire",
         level: "Maîtrisé",
-        icon: "solar:graph-linear",
+        icon: {
+          whiteIcon: "solar:graph-linear",
+          darkIcon: "solar:graph-linear",
+        },
         detail:
           "Modélisation de la relation entre une variable cible et un prédicteur continu, interprétation des coefficients.",
       },
       {
         name: "Régression multiple",
         level: "Maîtrisé",
-        icon: "tabler:chart-dots-3",
+        icon: {
+          whiteIcon: "tabler:chart-dots-3",
+          darkIcon: "tabler:chart-dots-3",
+        },
         detail:
           "Extension à plusieurs prédicteurs, analyse de multicolinéarité et sélection de variables.",
       },
       {
         name: "Régression logistique",
         level: "Maîtrisé",
-        icon: "mdi:chart-bell-curve",
+        icon: {
+          whiteIcon: "mdi:chart-bell-curve",
+          darkIcon: "mdi:chart-bell-curve",
+        },
         detail:
           "Classification binaire, interprétation des odds ratios et évaluation par matrice de confusion.",
       },
       {
         name: "Scikit-learn",
         level: "En apprentissage",
-        icon: "devicon:scikitlearn",
+        icon: {
+          whiteIcon: "devicon:scikitlearn",
+          darkIcon: "devicon-plain:scikitlearn",
+        },
         detail:
           "Exploration des pipelines ML : preprocessing, entraînement de modèles et évaluation des performances.",
       },
       {
         name: "Deep Learning",
         level: "En apprentissage",
-        icon: "carbon:machine-learning-model",
+        icon: {
+          whiteIcon: "carbon:machine-learning-model",
+          darkIcon: "carbon:machine-learning-model",
+        },
         detail:
           "Découverte des réseaux de neurones, des couches denses et des concepts fondamentaux comme la backpropagation.",
       },
@@ -142,76 +170,94 @@ const categories: Category[] = [
 const levelConfig = {
   Maîtrisé: {
     dot: "bg-green-500",
-    text: "text-black",
+    text: "text-neutral-800",
   },
   Avancé: {
-    dot: "bg-yellow-400",
-    text: "text-neutral-400",
+    dot: "bg-amber-400",
+    text: "text-neutral-600",
   },
   "En apprentissage": {
-    dot: "bg-neutral-200",
-    text: "text-neutral-300",
+    dot: "bg-neutral-300 dark:bg-neutral-400",
+    text: "text-neutral-400 dark:text-neutral-600",
   },
 };
 
 function SkillRow({ skill, index }: { skill: Skill; index: number }) {
   const config = levelConfig[skill.level];
-  const [hovered, setHovered] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
+
+  const isDarkMode = useIsDarkMode();
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (rowRef.current && !rowRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   return (
     <motion.div
       ref={rowRef}
       initial={{ opacity: 0, x: -12 }}
       whileInView={{ opacity: 1, x: 0 }}
-      whileHover={{ scale: 1.03, transition: { duration: 0.15, delay: 0.07 } }}
+      whileHover={{ scale: 1.015, transition: { duration: 0.15 } }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="relative flex items-center justify-between gap-4 py-3 border-b border-neutral-50 last:border-0 cursor-default"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="relative flex items-center justify-between gap-4 py-3 border-b border-neutral-100 dark:border-neutral-300 last:border-0 cursor-pointer md:cursor-default select-none"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+      onClick={() => setIsOpen(!isOpen)}
     >
       <div className="flex items-center gap-2.5">
         <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${config.dot}`} />
         <div className="flex items-center gap-2">
-          <span className="text-sm text-black">{skill.name}</span>
+          <span className="text-sm font-medium text-neutral-800">
+            {skill.name}
+          </span>
           {skill.icon && (
-            <Icon icon={skill.icon} className="text-lg text-neutral-400" />
+            <Icon
+              icon={isDarkMode ? skill.icon.darkIcon : skill.icon.whiteIcon}
+              className="text-base text-neutral-400 dark:text-neutral-500 shrink-0"
+            />
           )}
         </div>
       </div>
       <span
-        className={`text-[11px] uppercase tracking-widest shrink-0 ${config.text}`}
+        className={`text-[10px] md:text-[11px] font-medium uppercase tracking-widest shrink-0 ${config.text}`}
       >
         {skill.level}
       </span>
 
       <AnimatePresence>
-        {hovered && (
+        {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 4, scale: 0.97 }}
+            initial={{ opacity: 0, y: 4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-            className="absolute left-0 bottom-full mb-2 z-50 w-64 bg-white border border-neutral-100 rounded-xl shadow-md px-4 py-3 pointer-events-none"
+            exit={{ opacity: 0, y: 4, scale: 0.98 }}
+            transition={{ duration: 0.15 }}
+            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-50 w-70 sm:w-64 bg-white border border-neutral-200/60 rounded-xl shadow-xl px-4 py-3.5 pointer-events-none"
           >
-            <div className="absolute -bottom-1.5 left-5 w-3 h-3 bg-white border-r border-b border-neutral-100 rotate-45" />
+            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-neutral-200/60 rotate-45" />
 
-            <div className="flex items-center gap-2 mb-1.5">
+            <div className="flex items-center gap-2 mb-2">
               {skill.icon && (
-                <Icon
-                  icon={skill.icon}
-                  className="text-base text-neutral-500"
-                />
+                <Icon icon={isDarkMode ? skill.icon.darkIcon : skill.icon.whiteIcon} className="w-5 h-5 text-neutral-400 dark:text-neutral-500" />
               )}
-              <p className="text-xs font-semibold text-black">{skill.name}</p>
+              <p className="text-xs font-semibold text-neutral-900">
+                {skill.name}
+              </p>
               <span
-                className={`ml-auto text-[10px] uppercase tracking-widest ${config.text}`}
+                className={`ml-auto text-[9px] font-bold uppercase tracking-widest ${config.text}`}
               >
                 {skill.level}
               </span>
             </div>
-            <p className="text-[12px] text-neutral-400 leading-relaxed">
+            <p className="text-[12px] text-neutral-500 leading-relaxed font-normal">
               {skill.detail}
             </p>
           </motion.div>
@@ -223,7 +269,10 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-32 px-8 bg-neutral-50/50">
+    <section
+      id="skills"
+      className="py-20 md:py-32 px-6 sm:px-8 bg-neutral-50/50"
+    >
       <div className="max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -240,7 +289,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="text-3xl md:text-4xl font-semibold tracking-tight text-black mb-4"
+          className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black mb-4"
           style={{ fontFamily: "'Georgia', serif" }}
         >
           Ce que je sais faire.
@@ -251,7 +300,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.18 }}
-          className="text-neutral-400 text-sm mb-16 max-w-md leading-relaxed"
+          className="text-neutral-400 text-sm mb-12 md:mb-16 max-w-md leading-relaxed"
         >
           Un ensemble de compétences construites par la pratique — et qui
           continue de grandir.
@@ -262,35 +311,35 @@ export default function Skills() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex items-center gap-6 mb-10"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-10"
         >
           {Object.entries(levelConfig).map(([label, config]) => (
             <div key={label} className="flex items-center gap-2">
               <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
-              <span className="text-[11px] uppercase tracking-widest text-neutral-400">
+              <span className="text-[10px] md:text-[11px] uppercase tracking-widest font-medium text-neutral-400">
                 {label}
               </span>
             </div>
           ))}
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible">
           {categories.map((cat, ci) => (
             <motion.div
               key={cat.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: ci * 0.12 }}
-              className="bg-white border border-neutral-100 rounded-2xl p-6 overflow-visible"
+              transition={{ duration: 0.5, delay: ci * 0.1 }}
+              className="bg-white border border-neutral-200/50 rounded-2xl p-5 md:p-6 shadow-sm/50"
             >
-              <h3 className="text-sm font-semibold text-black tracking-tight mb-1">
+              <h3 className="text-sm font-semibold text-neutral-900 tracking-tight mb-1">
                 {cat.label}
               </h3>
-              <p className="text-[12px] text-neutral-400 leading-relaxed mb-5">
+              <p className="text-[12px] text-neutral-400 leading-relaxed mb-5 min-h-9">
                 {cat.description}
               </p>
-              <div>
+              <div className="mt-2">
                 {cat.skills.map((skill, si) => (
                   <SkillRow key={skill.name} skill={skill} index={si} />
                 ))}
@@ -303,20 +352,23 @@ export default function Skills() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-6 border border-neutral-100 rounded-2xl p-6 bg-white flex items-start gap-5"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-6 border border-neutral-200/50 rounded-2xl p-5 md:p-6 bg-white flex items-start gap-4"
         >
-          <Icon icon="boxicons:sigma" fontSize={30} />
+          <div className="p-2 bg-neutral-50 rounded-xl text-neutral-800 shrink-0">
+            <Icon icon="boxicons:sigma" className="w-6 h-6" />
+          </div>
           <div>
-            <h3 className="text-sm font-semibold text-black mb-1">
+            <h3 className="text-sm font-semibold text-neutral-900 mb-1">
               Mathématiques
             </h3>
-            <p className="text-[13px] text-neutral-400 leading-relaxed">
+            <p className="text-[13px] text-neutral-500 leading-relaxed">
               Une vraie passion pour l'
-              <span className="text-black">algèbre</span> et les{" "}
-              <span className="text-black">statistiques</span> — pas uniquement
-              comme support à la data, mais comme discipline en soi. Les
-              probabilités aussi, à leur juste mesure.
+              <span className="font-medium text-neutral-800">algèbre</span> et
+              les{" "}
+              <span className="font-medium text-neutral-800">statistiques</span>{" "}
+              — pas uniquement comme support à la data, mais comme discipline en
+              soi. Les probabilités aussi, à leur juste mesure.
             </p>
           </div>
         </motion.div>
