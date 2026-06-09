@@ -3,6 +3,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { TypeWriterComponent } from "./animations/TypeWriter";
 
 const tags = [
   "React & Next.js",
@@ -65,11 +66,7 @@ export const Hero = () => {
           transition={{ duration: 0.65, delay: 0.36 }}
           className="text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.1] md:leading-[1.05] tracking-tight text-foreground mb-6 font-georgia"
         >
-          Coder, analyser,
-          <br />
-          <span className="italic font-normal text-neutral-400 dark:text-neutral-100">
-            comprendre.
-          </span>
+            <TypeWriterComponent text={["Coder, analyser,", "comprendre"]}/>
         </motion.h1>
 
         <motion.p
