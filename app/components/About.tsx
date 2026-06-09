@@ -3,17 +3,56 @@
 
 import { motion } from "motion/react";
 import { Icon } from "@iconify/react";
+import Tooltip from "@/app/components/animations/Tooltip";
+import AgeDial from "@/app/components/ui/AgeDial";
+import { TypeWriterComponent } from "./animations/TypeWriter";
+import React from "react";
+import AnalystTable from "@/app/components/ui/AnalystTable";
 
-const facts = [
-  { label: "Formation", value: "L2 MIASHS" },
-  { label: "Passion depuis", value: "15 ans" },
-  { label: "Spécialités maths", value: "Algèbre & Stats" },
-  { label: "Cap actuel", value: "Data Science" },
+type Facts = {
+    label: string;
+    value: string;
+    message: string | React.ReactNode;
+    minus: number;
+    icon?: string;
+}
+
+const facts: Facts[] = [
+  {
+      label: "Formation",
+      value: "L2 MIASHS",
+      message: (
+          <>
+              <b>M</b>athématique et <b>I</b>nformatique <b>A</b>ppliquées aux <b>S</b>iences <b>H</b>umaines et <b>S</b>ociales.
+          </>
+      ),
+      minus: 65,
+      icon: "game-icons:graduate-cap"
+  },
+  {
+      label: "Passion depuis",
+      value: "15 ans",
+      message: <AgeDial />,
+      minus: 90,
+  },
+  {
+      label: "Spécialités maths",
+      value: "Algèbre & Stats",
+      message: <TypeWriterComponent key={"spe"} text={["Algèbre", "Statistiques", "Probabilités", "Analyse"]}/>,
+      minus: -75
+  },
+  {
+      label: "Cap actuel",
+      value: "Data Science",
+      message: <AnalystTable />,
+      minus: -75,
+      icon: "mynaui:send"
+  },
 ];
 
 export function About() {
   return (
-    <section id="about" className="py-20 md:py-32 px-6 sm:px-8 bg-gray-50/50">
+    <section id="about" className="relative py-20 md:py-32 px-6 sm:px-8 bg-gray-50/50">
       <div className="max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -43,7 +82,7 @@ export function About() {
               <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-neutral-500" />
             </div>
 
-            {/* Positionnement sécurisé du badge de localisation pour éviter les débordements sur écran mobile */}
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -110,23 +149,30 @@ export function About() {
  
             <div className="grid grid-cols-2 gap-3 md:gap-4">
               {facts.map((fact, i) => (
-                <motion.div
-                  key={fact.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.35 + i * 0.08 }}
-                  className="border border-neutral-100 dark:border-neutral-500 bg-white dark:bg-neutral-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3"
-                >
-                  <p className="text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-1">
-                    {fact.label}
-                  </p>
-                  <p className="text-xs md:text-sm font-medium text-black dark:text-white">{fact.value}</p>
-                </motion.div>
+                  <Tooltip key={fact.label} message={fact.message} minus={fact.minus}>
+                      <motion.div
+                          key={fact.label}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: 0.35 + i * 0.08 }}
+                          className="border border-gray-300 dark:border-neutral-500 bg-white dark:bg-neutral-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3 pointer-events-none"
+                      >
+                          <div className={"flex items-center gap-1 mb-1"}>
+                              <p className="text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 ">
+                                  {fact.label}
+                              </p>
+                              {fact.icon && (
+                                  <Icon icon={fact.icon} fontSize={15} />
+                              )}
+                          </div>
+                          <p className="text-xs md:text-sm font-medium text-black dark:text-white">{fact.value}</p>
+                      </motion.div>
+                  </Tooltip>
               ))}
             </div>
 
-            {/* Bouton de téléchargement */}
+
             <motion.a
               href="/CV.pdf"
               download
@@ -140,7 +186,7 @@ export function About() {
                 Télécharger mon CV
                 <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-black dark:bg-neutral-500 transition-all duration-300 ease-in-out group-hover:w-full" />
               </span>
-              <Icon icon="material-symbols:download" className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-200" />
+              <Icon icon="line-md:download-outline-loop" className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-200" />
             </motion.a>
           </motion.div>
           
