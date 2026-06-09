@@ -59,12 +59,9 @@ const categories: Category[] = [
           "Bases solides : sémantique HTML, mise en page CSS, Flexbox, Grid et responsive design.",
       },
       {
-        name: "JavaScript",
+        name: "Typescript",
         level: "Maîtrisé",
-        icon: {
-          whiteIcon: "devicon:javascript",
-          darkIcon: "ri:javascript-fill",
-        },
+        icon: {whiteIcon: "devicon:typescript", darkIcon: "ri:typescript-fill" },
         detail:
           "Manipulation du DOM, ES6+, async/await, fetch API et logique applicative côté client.",
       },
@@ -75,27 +72,27 @@ const categories: Category[] = [
         detail:
           "Composants fonctionnels, hooks, gestion d'état et architecture de projets front-end modernes.",
       },
+        {
+            name: "Tailwind CSS",
+            level: "Maîtrisé",
+            icon: {
+                whiteIcon: "devicon:tailwindcss",
+                darkIcon: "mdi:tailwind",
+            },
+            detail:
+                "Styling utility-first, design system cohérent et interfaces responsives sans CSS custom.",
+        },
       {
-        name: "Next.js",
-        level: "Avancé",
-        icon: { whiteIcon: "devicon:nextjs", darkIcon: "ri:nextjs-fill" },
+        name: "Solid",
+        level: "Maîtrisé",
+        icon: { whiteIcon: "devicon:solidjs", darkIcon: "devicon-plain:solidjs" },
         detail:
           "App Router, routes API, Server Components, SSR et déploiement sur Vercel.",
       },
       {
-        name: "Tailwind CSS",
-        level: "Avancé",
-        icon: {
-          whiteIcon: "devicon:tailwindcss",
-          darkIcon: "mdi:tailwind",
-        },
-        detail:
-          "Styling utility-first, design system cohérent et interfaces responsives sans CSS custom.",
-      },
-      {
-        name: "Prisma",
+        name: "Drizzle",
         level: "En apprentissage",
-        icon: { whiteIcon: "devicon:prisma", darkIcon: "lineicons:prisma" },
+        icon: { whiteIcon: "material-icon-theme:drizzle", darkIcon: "simple-icons:drizzle" },
         detail:
           "ORM TypeScript pour modéliser les bases de données et interagir avec PostgreSQL ou SQLite.",
       },
@@ -152,17 +149,7 @@ const categories: Category[] = [
         },
         detail:
           "Exploration des pipelines ML : preprocessing, entraînement de modèles et évaluation des performances.",
-      },
-      {
-        name: "Deep Learning",
-        level: "En apprentissage",
-        icon: {
-          whiteIcon: "carbon:machine-learning-model",
-          darkIcon: "carbon:machine-learning-model",
-        },
-        detail:
-          "Découverte des réseaux de neurones, des couches denses et des concepts fondamentaux comme la backpropagation.",
-      },
+      }
     ],
   },
 ];
