@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&display=swap');
+
 @import "tailwindcss";
 
 html {
@@ -12,6 +14,8 @@ html {
   --background: #ffffff;
   --foreground: #353935;
   --grid-color: #afafaf;
+    --font-geit-sans: sans-serif;
+    --font-geit-mono: monospace;
 }
 
 @theme inline {
@@ -22,6 +26,7 @@ html {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-georgia: "Georgia", serif;
+    --font-england: "England", serif;
 }
 
 @media (prefers-color-scheme: dark) {

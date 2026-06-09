@@ -57,10 +57,10 @@ export const Navbar = () => {
               <a
                 onClick={() => setIsOpen(false)}
                 href={link.href}
-                className="relative text-lg md:text-sm text-foreground tracking-wide no-underline group block py-2 md:inline"
+                className="relative text-lg md:text-sm text-foreground font-sans tracking-wide no-underline group block py-2 md:inline"
               >
                 {link.label}
-                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 -bottom-0.5 h-px w-0 bg-black dark:bg-neutral-500 transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 -bottom-0.5 h-0.5 w-0 bg-black dark:bg-neutral-500 transition-all duration-300 ease-in-out group-hover:w-full" />
               </a>
             </li>
           ))}
