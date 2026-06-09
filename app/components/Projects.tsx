@@ -17,13 +17,15 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "Databook",
+    title: "BoundNotes",
     description:
-      "Application de type notebook adaptée pour l'analyse de données, les statistiques et même les prises de notes.",
-    tags: ["React", "Tauri", "Rust", "Python"],
+      "BoundNotes est une application desktop de prise de notes Markdown, locale et orientée productivité, pensée comme une alternative légère à Inkdrop. Elle combine un éditeur CodeMirror avec aperçu en temps réel, notebooks hiérarchiques, tags colorés, notes épinglées, corbeille, recherche plein texte SQLite FTS5 et restauration automatique de la dernière note ouverte.\n" +
+        "\n" +
+        "Le projet est construit avec Tauri v2, SolidJS, TypeScript et Rust, avec une architecture local-first centrée sur la performance, la simplicité et une expérience fluide.",
+    tags: ["Solid", "Tauri", "Rust", "SQLite"],
     year: "2026",
     icon: <Icon icon="catppuccin:tauri" className="w-6 h-6" />,
-    status: true,
+    github: "https://github.com/Ingeniir/BoundNotes"
   },
   {
     title: "Clip Battle",
@@ -52,7 +54,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative flex flex-col border border-neutral-100 dark:border-neutral-500 rounded-2xl p-5 md:p-6 bg-background dark:bg-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-sm"
+      className="group relative flex flex-col border border-neutral-200 dark:border-neutral-500 rounded-2xl p-5 md:p-6 bg-background dark:bg-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-sm"
     >
 
       <div className="absolute top-4 right-4 text-neutral-400 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
@@ -63,7 +65,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         )}
       </div>
 
-      <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-300 dark:text-neutral-600 mb-3 md:mb-4">
+      <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-3 md:mb-4">
         {project.year}
       </span>
 
