@@ -74,7 +74,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </h3>
 
       <p className="text-sm text-neutral-500 dark:text-neutral-500 leading-relaxed flex-1 mb-5">
-        {project.description}
+          {project.description.split("\n\n").map((para, i) => (
+              <span key={i} className={"block mb-2"}>{para}</span>
+          ))}
       </p>
 
       <div className="flex flex-wrap gap-1.5 mb-5">
@@ -147,7 +149,7 @@ export default function Projects() {
           className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black mb-4"
           style={{ fontFamily: "'Georgia', serif" }}
         >
-          Ce que j'ai construit.
+          Ce que j&#39;ai construit.
         </motion.h2>
 
         <motion.p
@@ -157,14 +159,14 @@ export default function Projects() {
           transition={{ duration: 0.5, delay: 0.18 }}
           className="text-neutral-400 dark:text-neutral-600 text-sm mb-10 md:mb-14 max-w-md leading-relaxed"
         >
-          Quelques projets qui reflètent ma façon d'apprendre — en construisant,
+          Quelques projets qui reflètent ma façon d&#39;apprendre — en construisant,
           en cassant, et en recommençant mieux.
         </motion.p>
 
         {/* Grille responsive : 1 col sur mobile, 2 cols sur tablette, 3 cols sur desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} />
+            <ProjectCard key={project.title} project={project} index={i} />
           ))}
         </div>
 
@@ -175,7 +177,7 @@ export default function Projects() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-xs text-neutral-300 text-center mt-12 py-2"
         >
-          D'autres projets arrivent bientôt —{" "}
+          D&#39;autres projets arrivent bientôt —{" "}
           <a
             href="https://github.com/Ingeniir?tab=repositories"
             target="_blank"
