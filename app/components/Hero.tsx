@@ -46,7 +46,7 @@ export const Hero = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground opacity-40" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-foreground" />
           </span>
-          <span className="text-[10px] md:text-sx tracking-widest uppercase text-neutral-500 dark:text-neutral-200 font-medium">
+          <span className="text-[10px] md:text-xs tracking-widest uppercase text-neutral-500 dark:text-neutral-200 font-medium">
             Disponible pour des opportunités
           </span>
         </motion.div>
@@ -54,7 +54,7 @@ export const Hero = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.18 }}
+          transition={{ duration: 0.65, delay: 0.36 }}
           className="text-xs md:text-sm tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-100 mb-3 font-medium"
         >
           Hoareau Cédric
@@ -63,7 +63,7 @@ export const Hero = () => {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.36 }}
+          transition={{ duration: 0.65, delay: 0.50 }}
           className="text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.1] md:leading-[1.05] tracking-tight text-foreground mb-6 font-georgia"
         >
             <TypeWriterComponent text={["Coder, analyser,", "comprendre"]}/>
@@ -134,7 +134,7 @@ export const Hero = () => {
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }} 
             className="w-px h-8 md:h-10 bg-neutral-300 dark:bg-neutral-600" 
           />
-          <span className="text-[10px] md:text-sx tracking-widest text-neutral-400 dark:text-neutral-600 uppercase font-medium">
+          <span className="text-[10px] md:text-xs tracking-widest text-neutral-400 dark:text-neutral-600 uppercase font-medium">
             Scroll
           </span>
         </motion.div>
