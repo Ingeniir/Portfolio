@@ -30,11 +30,11 @@ export const Navbar = () => {
     }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background text-foregrounds border-b border-neutral-300 dark:border-[#6e6e6e]">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background border-b border-[var(--color-border)]">
       <div className="max-w-5xl mx-auto px-6 py-4 md:px-8 md:py-5 flex items-center justify-between">
         <motion.a
           href="#home"
-          className="text-sm tracking-widest uppercase text-foreground font-medium flex items-center gap-2 z-50"
+          className="text-sm tracking-widest uppercase font-medium flex items-center gap-2 z-50"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
@@ -66,14 +66,14 @@ export const Navbar = () => {
           `}
         >
           {navLinks.map((link) => (
-            <li key={link.href} className="w-full text-foreground text-center md:w-auto">
+            <li key={link.href} className="w-full text-center md:w-auto text-[var(--color-strong)] bg-[var(--color-card)]">
               <a
                 onClick={() => setIsOpen(false)}
                 href={link.href}
                 className="relative text-lg md:text-sm text-foreground font-sans tracking-wide no-underline group block py-2 md:inline"
               >
                 {link.label}
-                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 h-0.5 w-0 bg-black dark:bg-neutral-500 transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 h-0.5 w-0  transition-all duration-300 ease-in-out group-hover:w-full bg-[var(--color-strong)]" />
               </a>
             </li>
           ))}

@@ -53,7 +53,7 @@ const facts: Facts[] = [
 
 export function About() {
   return (
-    <section id="about" className="relative py-20 md:py-32 px-6 sm:px-8 bg-gray-50/50">
+    <section id="about" className="relative py-20 md:py-32 px-6 sm:px-8 bg-[var(--color-surface)]">
       <div className="max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -91,7 +91,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="absolute -bottom-3 right-3 md:-bottom-6 md:-right-6 bg-background border border-neutral-100 dark:border-neutral-500 rounded-xl px-4 py-3 md:px-5 md:py-4 shadow-sm"
+              className="absolute -bottom-3 right-3 md:-bottom-6 md:-right-6 border bg-background border-[var(--color-border)] rounded-xl px-4 py-3 md:px-5 md:py-4 shadow-sm"
             >
               <p className="text-[10px] md:text-xs text-neutral-400 dark:text-neutral-600 uppercase tracking-widest mb-0.5">
                 Localisation
@@ -147,7 +147,7 @@ export function About() {
               </p>
             </div>
 
-            <div className="my-6 md:my-8 h-px bg-neutral-100 dark:bg-neutral-500" />
+            <div className="my-6 md:my-8 h-px bg-[var(--color-border)]" />
 
  
             <div className="grid grid-cols-2 gap-3 md:gap-4">
@@ -159,7 +159,7 @@ export function About() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.4, delay: 0.35 + i * 0.08 }}
-                          className="border border-gray-300 dark:border-neutral-500 bg-white dark:bg-neutral-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3"
+                          className="border border-[var(--color-border)] bg-[var(--color-card)] rounded-xl px-3 py-2.5 md:px-4 md:py-3"
                       >
                           <div className={"flex items-center gap-1 mb-1"}>
                               <p className="text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 ">
@@ -169,7 +169,7 @@ export function About() {
                                   <Icon icon={fact.icon} fontSize={15} />
                               )}
                           </div>
-                          <p className="text-xs md:text-sm font-medium text-black dark:text-white">{fact.value}</p>
+                          <p className="text-xs md:text-sm text-[var(--color-strong)] font-medium">{fact.value}</p>
                       </motion.div>
                   </Tooltip>
               ))}

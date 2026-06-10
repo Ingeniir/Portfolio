@@ -195,7 +195,7 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
       whileHover={{ scale: 1.015, transition: { duration: 0.15 } }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="relative flex items-center justify-between gap-4 py-3 border-b border-neutral-100 dark:border-neutral-300 last:border-0 cursor-pointer md:cursor-default select-none"
+      className="relative flex items-center justify-between gap-4 py-3 border-b border-[var(--color-border-light)] last:border-0 cursor-pointer md:cursor-default select-none"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onClick={() => setIsOpen(!isOpen)}
@@ -227,9 +227,9 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.98 }}
             transition={{ duration: 0.15 }}
-            className={"absolute left-1/2 -translate-x-1/2 z-50 w-70 sm:w-64 bg-white border border-neutral-200/60 rounded-xl shadow-xl px-4 py-3.5 pointer-events-none bottom-full mb-3"}
+            className={"absolute left-1/2 -translate-x-1/2 z-50 w-70 sm:w-64 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl shadow-xl px-4 py-3.5 pointer-events-none bottom-full mb-3"}
           >
-            <div className={"absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-neutral-200/60 -bottom-1.5 rotate-45"} />
+            <div className={"absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-[var(--color-card)]  border-r border-b border-[var(--color-border)] -bottom-1.5 rotate-45"} />
 
             <div className="flex items-center gap-2 mb-2">
               {skill.icon && (
@@ -244,7 +244,7 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
                 {skill.level}
               </span>
             </div>
-            <p className="text-[12px] text-neutral-500 leading-relaxed font-normal">
+            <p className="text-[12px] text-[var(--color-muted)] leading-relaxed font-normal">
               {skill.detail}
             </p>
           </motion.div>
@@ -258,7 +258,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-20 md:py-32 px-6 sm:px-8 bg-neutral-50/50"
+      className="py-20 md:py-32 px-6 sm:px-8 bg-[var(--color-surface)]"
     >
       <div className="max-w-5xl mx-auto">
         <motion.p
@@ -318,9 +318,9 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: ci * 0.1 }}
-              className="bg-white border border-neutral-200/50 rounded-2xl p-5 md:p-6 shadow-sm/50"
+              className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl p-5 md:p-6 shadow-sm/50"
             >
-              <h3 className="text-sm font-semibold text-neutral-900 tracking-tight mb-1">
+              <h3 className="text-sm font-medium text-[var(--color-strong)] tracking-tight mb-1">
                 {cat.label}
               </h3>
               <p className="text-[12px] text-neutral-400 leading-relaxed mb-5 min-h-9">
@@ -340,7 +340,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-6 border border-neutral-200/50 rounded-2xl p-5 md:p-6 bg-white flex items-start gap-4"
+          className="mt-6 rounded-2xl p-5 md:p-6 bg-[var(--color-card)] border border-[var(--color-border)] flex items-start gap-4"
         >
           <div className="p-2 bg-neutral-50 rounded-xl text-neutral-800 shrink-0">
             <Icon icon="boxicons:sigma" className="w-6 h-6" />

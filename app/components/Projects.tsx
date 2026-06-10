@@ -54,7 +54,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative flex flex-col border border-neutral-200 dark:border-neutral-500 rounded-2xl p-5 md:p-6 bg-background dark:bg-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-sm"
+      className="group relative flex flex-col border border-[var(--color-border)] bg-[var(--color-card)] rounded-2xl p-5 md:p-6 hover:border-neutral-300 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-sm"
     >
 
       <div className="absolute top-4 right-4 text-neutral-400 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
@@ -83,7 +83,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.tags.map((tag) => (
           <span
             key={tag}
-            className="text-[10px] md:text-[11px] bg-neutral-50 text-neutral-400 dark:text-neutral-600 border border-neutral-100 dark:border-neutral-500 px-2.5 py-1 rounded-full tracking-wide"
+            className="text-[10px] md:text-[11px] bg-[var(--color-surface)] text-[var(--color-subtle)] border border-[var(--color-border-light)] px-2.5 py-1 rounded-full tracking-wide"
           >
             {tag}
           </span>
@@ -118,7 +118,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
         
         {project.status && (
-          <span className="inline-flex items-center justify-center px-2.5 py-1 text-[11px] font-medium rounded-lg bg-neutral-50 text-neutral-500 border border-neutral-100">
+          <span className="inline-flex items-center justify-center px-2.5 py-1 text-[11px] font-medium rounded-lg bg-[var(--color-surface)] text-[var(--color-muted)] border border-[var(--color-border-light)]">
             En cours
           </span>
         )}
@@ -129,7 +129,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 md:py-32 px-6 sm:px-8 bg-white">
+    <section id="projects" className="py-20 md:py-32 px-6 sm:px-8 bg-background">
       <div className="max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -146,7 +146,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-black mb-4"
+          className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[var(--color-strong)] mb-4"
           style={{ fontFamily: "'Georgia', serif" }}
         >
           Ce que j&#39;ai construit.

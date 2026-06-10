@@ -3,50 +3,56 @@
 @import "tailwindcss";
 
 html {
-  scroll-behavior: smooth;
-}
-
-.show-only-dark {
-  display: none;
+    scroll-behavior: smooth;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #353935;
-  --grid-color: #afafaf;
-    --font-geit-sans: sans-serif;
-    --font-geit-mono: monospace;
+    --background: #ffffff;
+    --foreground: #171717;
+    --grid-color: #afafaf;
+
+    --font-geist-sans: sans-serif;
+    --font-geist-mono: monospace;
+
+    /* Neutres */
+    --color-muted: #737373;        /* neutral-500 */
+    --color-subtle: #a3a3a3;       /* neutral-400 */
+    --color-faint: #d4d4d4;        /* neutral-300 */
+    --color-border: #e5e5e5;       /* neutral-200 */
+    --color-border-light: #f5f5f5; /* neutral-100 */
+    --color-surface: #fafafa;      /* neutral-50 */
+    --color-card: #ffffff;
+    --color-strong: #171717;       /* neutral-900 / noir */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-secondary: var(--secondary);
-  --color-foreground: var(--foreground);
-  --color-grid: var(--grid-color);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-georgia: "Georgia", serif;
-    --font-england: "England", serif;
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-grid: var(--grid-color);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+    --font-georgia: "Georgia", serif;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --grid-color: #6e6e6e;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+        --grid-color: #6e6e6e;
 
-  .show-only-light {
-    display: none;
-  }
-
-  .show-only-dark {
-    display: block;
-  }
+        --color-muted: #a3a3a3;
+        --color-subtle: #737373;
+        --color-faint: #525252;
+        --color-border: #404040;
+        --color-border-light: #262626;
+        --color-surface: #141414;
+        --color-card: #1a1a1a;
+        --color-strong: #ffffff;
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
 }

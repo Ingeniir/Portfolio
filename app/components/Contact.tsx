@@ -31,7 +31,7 @@ const subjects = [
 ] as const;
 
 const inputClass =
-  "w-full text-sm text-black bg-white border border-neutral-200 rounded-xl px-4 py-3 outline-none focus:border-black transition-colors duration-200 placeholder:text-neutral-300 resize-none";
+  "w-full text-sm border border-[var(--color-border)] text-[var(--color-strong)] rounded-xl px-4 py-3 outline-none focus:border-black transition-colors duration-200 placeholder:text-neutral-300 resize-none";
 
 export default function Contact() {
   const [form, setForm] = useState<FormData>({
@@ -81,7 +81,7 @@ export default function Contact() {
 
 
   return (
-    <section id="contact" className="py-20 md:py-32 px-6 sm:px-8 bg-white">
+    <section id="contact" className="py-20 md:py-32 px-6 sm:px-8 bg-background">
       <div className="max-w-5xl mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -154,7 +154,7 @@ export default function Contact() {
                     set("email", e.target.value);
                     if (status === "error") setStatus("idle");
                 }}
-                className="w-full text-sm text-black bg-white border-b border-neutral-200 focus:border-black px-1 py-3 outline-none transition-colors duration-200 placeholder:text-neutral-300"
+                className="w-full text-sm  border-b border-[var(--color-border)] text-[var(--color-strong)] focus:border-black px-1 py-3 outline-none transition-colors duration-200 placeholder:text-neutral-300"
               />
             </div>
 
@@ -168,7 +168,7 @@ export default function Contact() {
                   className={`rounded-xl border p-3.5 text-left transition-all duration-200 ${
                     form.subject === s.value
                       ? "border-black bg-black text-white shadow-sm"
-                      : "border-neutral-200 bg-white text-black hover:border-neutral-400"
+                      : "border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-strong)] hover:border-neutral-400"
                   }`}
                 >
                   <p className="text-xs font-semibold">{s.label}</p>

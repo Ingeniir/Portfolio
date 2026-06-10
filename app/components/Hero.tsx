@@ -46,7 +46,7 @@ export const Hero = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground opacity-40" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-foreground" />
           </span>
-          <span className="text-[10px] md:text-xs tracking-widest uppercase text-neutral-500 dark:text-neutral-200 font-medium">
+          <span className="text-[10px] md:text-xs tracking-widest uppercase text-[var(--color-subtle)] font-medium">
             Disponible pour des opportunités
           </span>
         </motion.div>
@@ -94,7 +94,7 @@ export const Hero = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 0.38 + index * 0.07 }}
-              className="text-xs border border-neutral-200 dark:border-neutral-600 text-neutral-500 dark:text-neutral-200 px-3 py-1.5 rounded-full tracking-wide bg-white/50 dark:bg-black/50 backdrop-blur-sm"
+              className="text-xs border border-[var(--color-border)] text-[var(--color-muted)] bg-[var(--color-surface)] px-3 py-1.5 rounded-full tracking-wide bg-white/50 dark:bg-black/50 backdrop-blur-sm"
             >
               {tag}
             </motion.span>
