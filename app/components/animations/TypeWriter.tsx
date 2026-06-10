@@ -10,10 +10,10 @@ interface Props {
     deleteSpeed?: number;
 }
 
-export const TypeWriterComponent = ({ text, size=30, color, delay = 75, deleteSpeed = 50 } : Props) => {
+export const TypeWriterComponent = ({ text, size=10, color, delay = 75, deleteSpeed = 50 } : Props) => {
 
     return (
-        <div className={`text-[${size }px] text-[${color}] font-bold`}>
+        <div style={{ fontSize: size, color: color }}>
             <TypeWriter
                 options={{
                     strings: text,

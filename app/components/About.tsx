@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
 import Tooltip from "@/app/components/animations/Tooltip";
 import AgeDial from "@/app/components/ui/AgeDial";
@@ -38,8 +39,8 @@ const facts: Facts[] = [
   {
       label: "Spécialités maths",
       value: "Algèbre & Stats",
-      message: <TypeWriterComponent key={"spe"} text={["Algèbre", "Statistiques", "Probabilités", "Analyse"]}/>,
-      minus: -75
+      message: <TypeWriterComponent key={"spe"} text={["Algèbre", "Statistiques", "Probabilités", "Analyse"]} size={15}/>,
+      minus: -75,
   },
   {
       label: "Cap actuel",
@@ -74,10 +75,12 @@ export function About() {
             className="relative max-w-md mx-auto md:max-w-none w-full"
           >
             <div className="relative overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 aspect-4/5 grayscale-50 hover:grayscale-0 transition-all duration-700">
-              <img
+              <Image
                 src="/CV-Photo.png"
                 alt="Hoareau Cédric"
                 className="w-full h-full object-cover"
+                width={400}
+                height={500}
               />
               <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5 dark:ring-neutral-500" />
             </div>
@@ -118,18 +121,18 @@ export function About() {
 
             <div className="space-y-4 text-neutral-500 dark:text-neutral-400 leading-relaxed text-[15px]">
               <p>
-                Depuis mes 15 ans, l'informatique n'est pas qu'un outil — c'est
-                un terrain d'exploration. J'ai commencé par{" "}
+                Depuis mes 15 ans, l&#39;informatique n&#39;est pas qu&#39;un outil — c&#39;est
+                un terrain d&#39;exploration. J&#39;ai commencé par{" "}
                 <span className="text-black font-medium">Python</span>,
                 découvert le web avec{" "}
                 <span className="text-black font-medium">React et Next.js</span>
-                , et aujourd'hui je plonge dans la{" "}
+                , et aujourd&#39;hui je plonge dans la{" "}
                 <span className="text-black font-medium">Data Science</span>.
               </p>
               <p>
                 En parallèle, les mathématiques ont toujours occupé une place
                 centrale — pas comme une contrainte académique, mais comme une
-                façon de penser. L'
+                façon de penser. L&#39;
                 <span className="text-black font-medium">algèbre</span> et les{" "}
                 <span className="text-black font-medium">statistiques</span> me
                 fascinent pour leur capacité à structurer le chaos.
@@ -156,7 +159,7 @@ export function About() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.4, delay: 0.35 + i * 0.08 }}
-                          className="border border-gray-300 dark:border-neutral-500 bg-white dark:bg-neutral-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3 pointer-events-none"
+                          className="border border-gray-300 dark:border-neutral-500 bg-white dark:bg-neutral-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3"
                       >
                           <div className={"flex items-center gap-1 mb-1"}>
                               <p className="text-[10px] md:text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 ">
