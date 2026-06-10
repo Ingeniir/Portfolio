@@ -1,7 +1,8 @@
 // app/components/Navbar.tsx
 "use client";
 
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { motion } from "motion/react";
 
@@ -16,6 +17,18 @@ const navLinks = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+    useEffect(() => {
+        document.body.style.overflow = isOpen ? "hidden" : "";
+        return () => { document.body.style.overflow = ""; };
+    }, [isOpen]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) setIsOpen(false);
+        };
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-background text-foregrounds border-b border-neutral-300 dark:border-[#6e6e6e]">
       <div className="max-w-5xl mx-auto px-6 py-4 md:px-8 md:py-5 flex items-center justify-between">
@@ -26,7 +39,7 @@ export const Navbar = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
         >
-          <img src="/favicon.ico" alt="Logo" className="w-8 h-8" />
+          <Image src="/favicon.ico" alt="Logo" width={28} height={28} />
           <span>Hoareau Cédric</span>
         </motion.a>
 
@@ -60,7 +73,7 @@ export const Navbar = () => {
                 className="relative text-lg md:text-sm text-foreground font-sans tracking-wide no-underline group block py-2 md:inline"
               >
                 {link.label}
-                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 -bottom-0.5 h-0.5 w-0 bg-black dark:bg-neutral-500 transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 h-0.5 w-0 bg-black dark:bg-neutral-500 transition-all duration-300 ease-in-out group-hover:w-full" />
               </a>
             </li>
           ))}
