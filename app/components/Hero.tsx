@@ -66,7 +66,7 @@ export const Hero = () => {
           transition={{ duration: 0.65, delay: 0.50 }}
           className="text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.1] md:leading-[1.05] tracking-tight text-foreground mb-6 font-georgia"
         >
-            <TypeWriterComponent text={["Coder, analyser,", "comprendre"]}/>
+            <TypeWriterComponent text={["Coder, analyser,", "comprendre"]} size={70}/>
         </motion.h1>
 
         <motion.p
@@ -79,7 +79,7 @@ export const Hero = () => {
           <span className="text-foreground font-medium">code</span>, les{" "}
           <span className="text-foreground font-medium">mathématiques</span> et
           la <span className="text-foreground font-medium">data</span> -
-          passionné par les problèmes qui méritent qu'on y réfléchisse vraiment.
+          passionné par les problèmes qui méritent qu&#39;on y réfléchisse vraiment.
         </motion.p>
 
         <motion.div
@@ -94,7 +94,7 @@ export const Hero = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 0.38 + index * 0.07 }}
-              className="text-xs border border-[var(--color-border)] text-[var(--color-muted)] bg-[var(--color-surface)] px-3 py-1.5 rounded-full tracking-wide bg-white/50 dark:bg-black/50 backdrop-blur-sm"
+              className="text-xs border border-[var(--color-border)] text-[var(--color-muted)] bg-[var(--color-surface)] px-3 py-1.5 rounded-full tracking-wide  backdrop-blur-sm"
             >
               {tag}
             </motion.span>
