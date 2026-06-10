@@ -6,15 +6,15 @@ import { Icon } from "@iconify/react";
 import { useState, useRef, useEffect } from "react";
 import { useIsDarkMode } from "../hooks/useIsDarkMode";
 
-type Icon = {
+type SkillIcon = {
   whiteIcon: string;
   darkIcon: string;
 };
 
 type Skill = {
   name: string;
-  level: "Maîtrisé" | "Avancé" | "En apprentissage";
-  icon: Icon;
+  level: "Matrise" | "Avance" | "En apprentissage";
+  icon: SkillIcon;
   detail: string;
 };
 
@@ -32,7 +32,7 @@ const categories: Category[] = [
     skills: [
       {
         name: "Python",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: { whiteIcon: "devicon:python", darkIcon: "proicons:python" },
         detail:
           "Programmation polyvalente pour le développement web, la data science et l'automatisation, avec une syntaxe claire et une vaste bibliothèque standard.",
@@ -53,28 +53,28 @@ const categories: Category[] = [
     skills: [
       {
         name: "HTML / CSS",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: { whiteIcon: "devicon:html5", darkIcon: "codex:html" },
         detail:
           "Bases solides : sémantique HTML, mise en page CSS, Flexbox, Grid et responsive design.",
       },
       {
         name: "Typescript",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: {whiteIcon: "devicon:typescript", darkIcon: "ri:typescript-fill" },
         detail:
           "Manipulation du DOM, ES6+, async/await, fetch API et logique applicative côté client.",
       },
       {
         name: "React",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: { whiteIcon: "devicon:react", darkIcon: "akar-icons:react-fill" },
         detail:
           "Composants fonctionnels, hooks, gestion d'état et architecture de projets front-end modernes.",
       },
         {
             name: "Tailwind CSS",
-            level: "Maîtrisé",
+            level: "Matrise",
             icon: {
                 whiteIcon: "devicon:tailwindcss",
                 darkIcon: "mdi:tailwind",
@@ -84,10 +84,10 @@ const categories: Category[] = [
         },
       {
         name: "Solid",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: { whiteIcon: "devicon:solidjs", darkIcon: "devicon-plain:solidjs" },
         detail:
-          "App Router, routes API, Server Components, SSR et déploiement sur Vercel.",
+          "Router, routes API, Server Functions, SSR et déploiement sur Vercel.",
       },
       {
         name: "Drizzle",
@@ -112,7 +112,7 @@ const categories: Category[] = [
     skills: [
       {
         name: "Régression linéaire",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: {
           whiteIcon: "solar:graph-linear",
           darkIcon: "solar:graph-linear",
@@ -122,7 +122,7 @@ const categories: Category[] = [
       },
       {
         name: "Régression multiple",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: {
           whiteIcon: "tabler:chart-dots-3",
           darkIcon: "tabler:chart-dots-3",
@@ -132,7 +132,7 @@ const categories: Category[] = [
       },
       {
         name: "Régression logistique",
-        level: "Maîtrisé",
+        level: "Matrise",
         icon: {
           whiteIcon: "mdi:chart-bell-curve",
           darkIcon: "mdi:chart-bell-curve",
@@ -155,11 +155,11 @@ const categories: Category[] = [
 ];
 
 const levelConfig = {
-  Maîtrisé: {
+  Matrise: {
     dot: "bg-green-500",
     text: "text-neutral-800",
   },
-  Avancé: {
+  Avance: {
     dot: "bg-amber-400",
     text: "text-neutral-600",
   },
@@ -227,9 +227,9 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.98 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-50 w-70 sm:w-64 bg-white border border-neutral-200/60 rounded-xl shadow-xl px-4 py-3.5 pointer-events-none"
+            className={"absolute left-1/2 -translate-x-1/2 z-50 w-70 sm:w-64 bg-white border border-neutral-200/60 rounded-xl shadow-xl px-4 py-3.5 pointer-events-none bottom-full mb-3"}
           >
-            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-neutral-200/60 rotate-45" />
+            <div className={"absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-neutral-200/60 -bottom-1.5 rotate-45"} />
 
             <div className="flex items-center gap-2 mb-2">
               {skill.icon && (
@@ -350,7 +350,7 @@ export default function Skills() {
               Mathématiques
             </h3>
             <p className="text-[13px] text-neutral-500 leading-relaxed">
-              Une vraie passion pour l'
+              Une vraie passion pour l&#39;
               <span className="font-medium text-neutral-800">algèbre</span> et
               les{" "}
               <span className="font-medium text-neutral-800">statistiques</span>{" "}
