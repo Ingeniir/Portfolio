@@ -3,7 +3,7 @@
 
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
 type Subject = "information" | "projet" | "autres" | "";
 
@@ -46,11 +46,22 @@ export default function Contact() {
     "idle" | "loading" | "success" | "error"
   >("idle");
 
+
+    const isReady =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) && (
+            form.info.trim() !== "" ||
+            (form.projectName.trim() !== "" && form.projectDetails.trim() !== "") ||
+            form.other.trim() !== ""
+        );
+    const [pathDone, setPathDone] = useState<boolean>(false);
+
   const set = (key: keyof FormData, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
+
   const handleSubmit = async () => {
-    if (!form.email || !form.subject) return;
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+      if (!form.email || !isValidEmail || !form.subject) return;
 
     setStatus("loading");
     try {
@@ -66,6 +77,8 @@ export default function Contact() {
       setStatus("error");
     }
   };
+
+
 
   return (
     <section id="contact" className="py-20 md:py-32 px-6 sm:px-8 bg-white">
@@ -137,7 +150,10 @@ export default function Contact() {
                 type="email"
                 placeholder="Votre adresse email"
                 value={form.email}
-                onChange={(e) => set("email", e.target.value)}
+                onChange={(e) => {
+                    set("email", e.target.value);
+                    if (status === "error") setStatus("idle");
+                }}
                 className="w-full text-sm text-black bg-white border-b border-neutral-200 focus:border-black px-1 py-3 outline-none transition-colors duration-200 placeholder:text-neutral-300"
               />
             </div>
@@ -147,6 +163,7 @@ export default function Contact() {
                 <button
                   key={s.value}
                   type="button"
+                  aria-pressed={form.subject === s.value}
                   onClick={() => set("subject", s.value)}
                   className={`rounded-xl border p-3.5 text-left transition-all duration-200 ${
                     form.subject === s.value
@@ -232,13 +249,55 @@ export default function Contact() {
               </AnimatePresence>
             </div>
 
-            <button
-              onClick={handleSubmit}
-              disabled={!form.email || !form.subject || status === "loading"}
-              className="w-full bg-black text-white text-sm font-medium py-3 rounded-xl hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed shadow-sm mt-1"
-            >
-              {status === "loading" ? "Envoi en cours..." : "Envoyer le message"}
-            </button>
+              <div className="relative mt-1">
+                  <button
+                      onClick={handleSubmit}
+                      disabled={!isReady || status === "loading"}
+                      className="w-full bg-black text-white text-sm font-medium py-3 rounded-xl hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed shadow-sm"
+                  >
+                      {status === "loading" ? "Envoi en cours..." : "Envoyer le message"}
+                  </button>
+
+
+                  <div className="absolute hidden md:block" style={{ left: "100%", top: "70%", transform: "translateY(-50%)" }}>
+                      <div className="relative" style={{ width: 310, height: 92 }}>
+                          <svg width="310" height="92" viewBox="0 0 310 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                  d={"M0.5 34.0002C180.88 20.5443 198.382 25.9824 226.5 34.0002C258.086 43.0067 252.4 59.5693 252.5 70C252.681 88.8587 218.763 91.1144 214 90.5C204.42 89.2643 190.888 89.597 184.5 73.5C172.32 42.8064 217.886 19.0418 235 20C256.749 21.2177 306 11.5 309.5 0.5"}
+                                  stroke={"lightgray"}
+                                  strokeLinecap={"round"}
+                                  strokeLinejoin={"bevel"}
+                                  strokeWidth={"2"}
+                                  strokeDasharray={"12 12"}
+                              />
+
+                              <motion.path
+                                  d="M0.5 34.0002C180.88 20.5443 198.382 25.9824 226.5 34.0002C258.086 43.0067 252.4 59.5693 252.5 70C252.681 88.8587 218.763 91.1144 214 90.5C204.42 89.2643 190.888 89.597 184.5 73.5C172.32 42.8064 217.886 19.0418 235 20C256.749 21.2177 306 11.5 309.5 0.5"
+                                  stroke="black"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="bevel"
+                                  strokeWidth="2"
+                                  fill="none"
+                                  initial={{ pathLength: 0 }}
+                                  animate={{ pathLength: isReady ? 1 : 0 }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                                  onAnimationComplete={() => setPathDone(isReady)}
+                              />
+                          </svg>
+
+
+
+                          <div className="absolute" style={{ left: 295, top: -18 }}>
+                              <motion.div
+                                  animate={{ color: pathDone ? "#000000" : "#d1d5db" }}
+                                  transition={{ duration: 0.3 }}
+                              >
+                                  <Icon icon="lucide:send" className="text-4xl" />
+                              </motion.div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
             <div className="min-h-5">
               <AnimatePresence>
