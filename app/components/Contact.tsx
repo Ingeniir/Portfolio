@@ -148,7 +148,7 @@ export default function Contact() {
             <div className="w-full">
               <input
                 type="email"
-                placeholder="Votre adresse email"
+                placeholder="Votre adresse email (ex: test@gmail.com)"
                 value={form.email}
                 onChange={(e) => {
                     set("email", e.target.value);
@@ -259,7 +259,7 @@ export default function Contact() {
                   </button>
 
 
-                  <div className="absolute hidden md:block" style={{ left: "100%", top: "70%", transform: "translateY(-50%)" }}>
+                  <div className="absolute hidden 2xl:block" style={{ left: "100%", top: "70%", transform: "translateY(-50%)" }}>
                       <div className="relative" style={{ width: 310, height: 92 }}>
                           <svg width="310" height="92" viewBox="0 0 310 92" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path
@@ -297,7 +297,46 @@ export default function Contact() {
                           </div>
                       </div>
                   </div>
+                  <div className="absolute block 2xl:hidden" style={{ left: "10%", top: "250%", transform: "translateY(-50%)" }}>
+                      <div className="relative" style={{ width: 161, height: 130 }}>
+                          <svg width="161" height="130" viewBox="0 0 161 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                  d={"M74.2523 0.5C84.0926 76.2349 58.6716 80.9949 34.8398 81.6786C23.7967 81.8719 1.48199 77.2718 0.568078 57.325C-0.574313 32.3916 12.9581 26.5248 18.8435 23.6939C29.5387 18.5495 62.0965 26.0622 58.8278 49.2072C56.1721 68.0112 32.3501 108.241 55.4029 118.209C87.8394 132.234 109.613 132.492 123.946 122.848C138.28 113.203 153.299 101.14 160.5 78.7794"}
+                                  stroke={"lightgray"}
+                                  strokeLinecap={"round"}
+                                  strokeLinejoin={"bevel"}
+                                  strokeWidth={"2"}
+                                  strokeDasharray={"12 12"}
+                              />
+
+                              <motion.path
+                                  d="M74.2523 0.5C84.0926 76.2349 58.6716 80.9949 34.8398 81.6786C23.7967 81.8719 1.48199 77.2718 0.568078 57.325C-0.574313 32.3916 12.9581 26.5248 18.8435 23.6939C29.5387 18.5495 62.0965 26.0622 58.8278 49.2072C56.1721 68.0112 32.3501 108.241 55.4029 118.209C87.8394 132.234 109.613 132.492 123.946 122.848C138.28 113.203 153.299 101.14 160.5 78.7794"
+                                  stroke="black"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="bevel"
+                                  strokeWidth="2"
+                                  fill="none"
+                                  initial={{ pathLength: 0 }}
+                                  animate={{ pathLength: isReady ? 1 : 0 }}
+                                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                                  onAnimationComplete={() => setPathDone(isReady)}
+                              />
+                          </svg>
+
+
+
+                          <div className="absolute" style={{ left: 144.5, top: 56.5 }}>
+                              <motion.div
+                                  animate={{ color: pathDone ? "#000000" : "#d1d5db" }}
+                                  transition={{ duration: 0.3 }}
+                              >
+                                  <Icon icon="lucide:send" className="text-4xl -rotate-z-10" />
+                              </motion.div>
+                          </div>
+                      </div>
+                  </div>
               </div>
+
 
             <div className="min-h-5">
               <AnimatePresence>
