@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { motion } from "motion/react";
 
+const sections: string[] = ["home", "about", "projects", "skills", "contact"]
+
 const navLinks = [
   { label: "Accueil", href: "#home" },
   { label: "À propos", href: "#about" },
@@ -16,6 +18,30 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home')
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: "-40% 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [])
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "";
@@ -65,15 +91,21 @@ export const Navbar = () => {
             ${isOpen ? "translate-x-0" : "translate-x-full md:translate-x-0"}
           `}
         >
-          {navLinks.map((link) => (
-            <li key={link.href} className="w-full text-center md:w-auto text-[var(--color-strong)] bg-[var(--color-card)]">
+          {navLinks.map((link, index) => (
+            <li key={sections[index]} className="w-full text-center md:w-auto text-[--color-strong] bg-[--color-card]">
               <a
                 onClick={() => setIsOpen(false)}
                 href={link.href}
-                className="relative text-lg md:text-sm text-foreground font-sans tracking-wide no-underline group block py-2 md:inline"
+                className={`relative text-lg md:text-sm font-sans tracking-wide no-underline block py-2 hover:text-foreground transition-colors duration-200 ${
+                  activeSection === sections[index] ? "text-foreground" : "text-foreground/70"
+                }`}
               >
                 {link.label}
-                <span className="absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 h-0.5 w-0  transition-all duration-300 ease-in-out group-hover:w-full bg-[var(--color-strong)]" />
+                <span
+                  className={`absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 h-0.5 transition-all duration-300 ease-in-out bg-[var(--color-strong)] ${
+                    activeSection === sections[index] ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
               </a>
             </li>
           ))}
