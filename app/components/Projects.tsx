@@ -28,13 +28,13 @@ const projects: Project[] = [
     github: "https://github.com/Ingeniir/BoundNotes"
   },
   {
-    title: "Clip Battle",
+    title: "Organised",
     description:
-      "Transposer le format ultra-populaire des \"Beat Battle\" de la production musicale vers l'univers du montage vidéo court (TikTok, Reels, Shorts). L'objectif est de créer une plateforme communautaire et gamifiée où les monteurs s'affrontent chaque semaine autour d'un \"Pack de Battle\" imposé : des rushs vidéos bruts, des effets sonores (SFX) obligatoires et une contrainte technique précise (format, durée, style). Un système de vote intégré permet à la communauté d'élire le meilleur montage de la session.",
-    tags: ["Next.js", "Supabase"],
+      "Application mobile de productivité étudiante développée en React Native (Expo), ciblant iPad et iPhone. Intègre un calendrier hebdomadaire et mensuel avec synchronisation de l'emploi du temps universitaire via iCal ADE, une gestion de tâches avec timer de révision, un suivi financier avec compte principal et argent de poche, et un dashboard avec previews en temps réel. Backend Supabase avec authentification, Row Level Security et transactions atomiques. Distribuée via sideload sur iPad avec un pipeline CI/CD GitHub Actions.",
+    tags: ["React Native", "Expo", "TanStack"],
     year: "2026",
-    icon: <Icon icon="material-symbols:http" className="w-6 h-6" />,
-    status: true,
+    icon: <Icon icon="devicon:reactnative-wordmark" className="w-6 h-6" />,
+    github: "https://github.com/Ingeniir/Organised"
   },
   {
     title: "Snapshot Manager",
@@ -101,7 +101,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               className="flex items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-600 hover:text-black dark:hover:text-white transition-colors duration-200 py-1"
             >
               <Icon icon="mdi:github" className="w-4 h-4" />
-              GitHub
+              <span>GitHub</span>
             </a>
           )}
           {project.href && (
