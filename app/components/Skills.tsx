@@ -72,16 +72,22 @@ const categories: Category[] = [
         detail:
           "Composants fonctionnels, hooks, gestion d'état et architecture de projets front-end modernes.",
       },
-        {
-            name: "Tailwind CSS",
-            level: "Matrise",
-            icon: {
-                whiteIcon: "devicon:tailwindcss",
-                darkIcon: "mdi:tailwind",
-            },
-            detail:
-                "Styling utility-first, design system cohérent et interfaces responsives sans CSS custom.",
-        },
+      {
+        name: "React Native",
+        level: "En apprentissage",
+        icon: { whiteIcon: "tabler:brand-react-native", darkIcon: "tabler:brand-react-native" },
+        detail: "Rendu iPad, iPhone, router, gestion FlatList, BottomSheet view."
+      },
+      {
+          name: "Tailwind CSS",
+          level: "Matrise",
+          icon: {
+              whiteIcon: "devicon:tailwindcss",
+              darkIcon: "mdi:tailwind",
+          },
+          detail:
+              "Styling utility-first, design system cohérent et interfaces responsives sans CSS custom.",
+      },
       {
         name: "Solid",
         level: "Matrise",
@@ -131,6 +137,16 @@ const categories: Category[] = [
           "Extension à plusieurs prédicteurs, analyse de multicolinéarité et sélection de variables.",
       },
       {
+        name: "Descente de gradient",
+        level: "Matrise",
+        icon: {
+          whiteIcon: "tabler:delta",
+          darkIcon: "tabler:delta",
+        },
+        detail:
+          "Extension à plusieurs prédicteurs, analyse de multicolinéarité et sélection de variables.",
+      },
+      {
         name: "Régression logistique",
         level: "Matrise",
         icon: {
@@ -169,7 +185,7 @@ const levelConfig = {
   },
 };
 
-function SkillRow({ skill, index }: { skill: Skill; index: number }) {
+function SkillRow({ skill, index, show, showIndex }: { skill: Skill; index: number, show: boolean, showIndex: number | null }) {
   const config = levelConfig[skill.level];
   const [isOpen, setIsOpen] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
@@ -186,6 +202,8 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
+
+  if (!show && index > 5) return
 
   return (
     <motion.div
@@ -209,7 +227,7 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
           {skill.icon && (
             <Icon
               icon={isDarkMode ? skill.icon.darkIcon : skill.icon.whiteIcon}
-              className="text-base text-neutral-400 dark:text-neutral-500 shrink-0"
+              className={`text-base text-neutral-400 dark:text-neutral-500 shrink-0 ${skill.name === "Descente de gradient" && "rotate-180"}`}
             />
           )}
         </div>
@@ -255,6 +273,10 @@ function SkillRow({ skill, index }: { skill: Skill; index: number }) {
 }
 
 export default function Skills() {
+
+  const [show, setShow] = useState<boolean>(false)
+  const [index, setIndex] = useState<number | null>(null)
+
   return (
     <section
       id="skills"
@@ -318,8 +340,21 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: ci * 0.1 }}
-              className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl p-5 md:p-6 shadow-sm/50"
+              className={`relative bg-[var(--color-card)] border border-[var(--color-border)] rounded-2xl p-5 md:p-6 shadow-sm/50 ${show && index === ci && 'w-[113.2vh]'} ${show && index !== ci && 'hidden'}`}
             >
+              {show && (
+                <div className="absolute right-4 top-4">
+                  <button 
+                    className="dark:text-gray-200 hover:dark:text-foreground text-gray-500 hover:text-foreground transition-colors duration-200 text-xl cursor-pointer"
+                    onClick={() => {
+                      setShow(false)
+                      setIndex(null)
+                    }}
+                  >
+                    <Icon icon="mdi:close" />
+                  </button>
+                </div>
+              )}
               <h3 className="text-sm font-medium text-[var(--color-strong)] tracking-tight mb-1">
                 {cat.label}
               </h3>
@@ -328,9 +363,22 @@ export default function Skills() {
               </p>
               <div className="mt-2">
                 {cat.skills.map((skill, si) => (
-                  <SkillRow key={skill.name} skill={skill} index={si} />
+                  <SkillRow key={skill.name} skill={skill} index={si} show={show} showIndex={index} />
                 ))}
               </div>
+              {!show && (
+                <div className="absolute right-4 bottom-2">
+                  <button 
+                    className="text-xs dark:text-gray-200 hover:dark:text-foreground text-gray-500 hover:text-foreground hover:underline cursor-pointer transition-colors duration-200"
+                    onClick={() => {
+                      setShow(true)
+                      setIndex(ci)
+                    }}
+                  >
+                    Afficher plus
+                  </button>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
