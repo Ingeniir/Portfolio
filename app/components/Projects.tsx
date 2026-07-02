@@ -3,6 +3,7 @@
 
 import { motion } from "motion/react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 
 type Project = {
   title: string;
@@ -12,6 +13,7 @@ type Project = {
   github?: string;
   year: string;
   icon?: React.ReactNode;
+  image?: string;
   status?: boolean;
 };
 
@@ -33,7 +35,7 @@ const projects: Project[] = [
       "Application mobile de productivité étudiante développée en React Native (Expo), ciblant iPad et iPhone. Intègre un calendrier hebdomadaire et mensuel avec synchronisation de l'emploi du temps universitaire via iCal ADE, une gestion de tâches avec timer de révision, un suivi financier avec compte principal et argent de poche, et un dashboard avec previews en temps réel. Backend Supabase avec authentification, Row Level Security et transactions atomiques. Distribuée via sideload sur iPad avec un pipeline CI/CD GitHub Actions.",
     tags: ["React Native", "Expo", "TanStack"],
     year: "2026",
-    icon: <Icon icon="devicon:reactnative-wordmark" className="w-6 h-6" />,
+    image: "/icon.svg",
     github: "https://github.com/Ingeniir/Organised"
   },
   {
@@ -57,10 +59,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className="group relative flex flex-col border border-[var(--color-border)] bg-[var(--color-card)] rounded-2xl p-5 md:p-6 hover:border-neutral-300 dark:hover:border-neutral-500 transition-all duration-300 hover:shadow-sm"
     >
 
-      <div className="absolute top-4 right-4 text-neutral-400 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
+      <div className={`absolute ${project.image ? 'top-2 right-2' : 'top-4 right-4'} text-neutral-400 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200`}>
         {project.icon ? (
           project.icon
-        ) : (
+        ) : project.image ? (
+          <Image src={project.image} width={50} height={50} alt="icon" />
+        ) : 
+        (
           <Icon icon="ph:dev-to-logo-light" className="w-6 h-6" />
         )}
       </div>
