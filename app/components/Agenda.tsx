@@ -65,7 +65,7 @@ export default function Agenda() {
     return d;
   }, [days]);
 
-  // Fetch events for the current week range
+  // Fetch events for the current week range and subscribe to updates
   useEffect(() => {
     let active = true;
     async function fetchWeekEvents() {
@@ -94,13 +94,31 @@ export default function Agenda() {
     }
 
     fetchWeekEvents();
+
+    const listener = () => {
+      fetchWeekEvents();
+    };
+
+    // Real-time subscription to automatic updates
+    pb.collection("availability")
+      .subscribe("*", listener)
+      .catch((err) => {
+        console.error("Failed to subscribe to availability real-time updates:", err);
+      });
+
     return () => {
       active = false;
+      pb.collection("availability")
+        .unsubscribe("*", listener)
+        .catch((err) => {
+          console.error("Failed to unsubscribe from availability real-time updates:", err);
+        });
     };
   }, [startOfWeek, endOfWeek]);
 
-  // Fetch current live status
+  // Fetch current live status and subscribe to changes + periodic timer update
   useEffect(() => {
+    let active = true;
     async function fetchLiveStatus() {
       try {
         const now = new Date().toISOString();
@@ -109,12 +127,42 @@ export default function Agenda() {
           .getFirstListItem<AvailabilityEvent>(
             `start <= "${now}" && end >= "${now}"`,
           );
-        setCurrentStatus(record);
+        if (active) {
+          setCurrentStatus(record);
+        }
       } catch {
-        setCurrentStatus(null);
+        if (active) {
+          setCurrentStatus(null);
+        }
       }
     }
+
     fetchLiveStatus();
+
+    const listener = () => {
+      fetchLiveStatus();
+    };
+
+    pb.collection("availability")
+      .subscribe("*", listener)
+      .catch((err) => {
+        console.error("Failed to subscribe to live status updates:", err);
+      });
+
+    // Check availability status every 60 seconds to handle temporal transition (e.g. going from busy to free as time ticks)
+    const interval = setInterval(() => {
+      fetchLiveStatus();
+    }, 60000);
+
+    return () => {
+      active = false;
+      clearInterval(interval);
+      pb.collection("availability")
+        .unsubscribe("*", listener)
+        .catch((err) => {
+          console.error("Failed to unsubscribe from live status updates:", err);
+        });
+    };
   }, []);
 
   const handlePrevWeek = () => {
