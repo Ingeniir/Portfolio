@@ -1,7 +1,7 @@
 // app/components/Agenda.tsx
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { pb } from "../lib/pocketbase";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "motion/react";
@@ -65,102 +65,90 @@ export default function Agenda() {
     return d;
   }, [days]);
 
-  // Fetch events for the current week range and subscribe to updates
-  useEffect(() => {
-    let active = true;
-    async function fetchWeekEvents() {
-      setLoading(true);
-      try {
-        const startISO = startOfWeek.toISOString();
-        const endISO = endOfWeek.toISOString();
+  // Fetch events for the current week range
+  const fetchWeekEvents = useCallback(async () => {
+    setLoading(true);
+    try {
+      const startISO = startOfWeek.toISOString();
+      const endISO = endOfWeek.toISOString();
 
-        // Filter events that overlap with the current week range
-        const records = await pb
-          .collection("availability")
-          .getFullList<AvailabilityEvent>({
-            filter: `start <= "${endISO}" && end >= "${startISO}"`,
-            sort: "start",
-          });
-
-        if (active) {
-          setEvents(records);
-        }
-      } catch (err) {
-        console.error("Error loading availability events:", err);
-        if (active) setEvents([]);
-      } finally {
-        if (active) setLoading(false);
-      }
-    }
-
-    fetchWeekEvents();
-
-    const listener = () => {
-      fetchWeekEvents();
-    };
-
-    // Real-time subscription to automatic updates
-    pb.collection("availability")
-      .subscribe("*", listener)
-      .catch((err) => {
-        console.error("Failed to subscribe to availability real-time updates:", err);
-      });
-
-    return () => {
-      active = false;
-      pb.collection("availability")
-        .unsubscribe("*", listener)
-        .catch((err) => {
-          console.error("Failed to unsubscribe from availability real-time updates:", err);
+      const records = await pb
+        .collection("availability")
+        .getFullList<AvailabilityEvent>({
+          filter: `start <= "${endISO}" && end >= "${startISO}"`,
+          sort: "start",
         });
-    };
+
+      setEvents(records);
+    } catch (err) {
+      console.error("Error loading availability events:", err);
+      setEvents([]);
+    } finally {
+      setLoading(false);
+    }
   }, [startOfWeek, endOfWeek]);
 
-  // Fetch current live status and subscribe to changes + periodic timer update
-  useEffect(() => {
-    let active = true;
-    async function fetchLiveStatus() {
-      try {
-        const now = new Date().toISOString();
-        const record = await pb
-          .collection("availability")
-          .getFirstListItem<AvailabilityEvent>(
-            `start <= "${now}" && end >= "${now}"`,
-          );
-        if (active) {
-          setCurrentStatus(record);
-        }
-      } catch {
-        if (active) {
-          setCurrentStatus(null);
-        }
-      }
+  // Fetch current live status
+  const fetchLiveStatus = useCallback(async () => {
+    try {
+      const now = new Date().toISOString();
+      const record = await pb
+        .collection("availability")
+        .getFirstListItem<AvailabilityEvent>(
+          `start <= "${now}" && end >= "${now}"`,
+        );
+      setCurrentStatus(record);
+    } catch {
+      setCurrentStatus(null);
     }
+  }, []);
 
+  // Trigger week fetch when week range changes
+  useEffect(() => {
+    fetchWeekEvents();
+  }, [fetchWeekEvents]);
+
+  // Fetch live status on mount and setup a periodic check timer
+  useEffect(() => {
     fetchLiveStatus();
 
-    const listener = () => {
-      fetchLiveStatus();
-    };
-
-    pb.collection("availability")
-      .subscribe("*", listener)
-      .catch((err) => {
-        console.error("Failed to subscribe to live status updates:", err);
-      });
-
-    // Check availability status every 60 seconds to handle temporal transition (e.g. going from busy to free as time ticks)
     const interval = setInterval(() => {
       fetchLiveStatus();
     }, 60000);
 
     return () => {
-      active = false;
       clearInterval(interval);
+    };
+  }, [fetchLiveStatus]);
+
+  // Unified Refs to hold the latest functions to avoid dependency cycle in the subscription
+  const fetchWeekEventsRef = useRef(fetchWeekEvents);
+  const fetchLiveStatusRef = useRef(fetchLiveStatus);
+
+  useEffect(() => {
+    fetchWeekEventsRef.current = fetchWeekEvents;
+  }, [fetchWeekEvents]);
+
+  useEffect(() => {
+    fetchLiveStatusRef.current = fetchLiveStatus;
+  }, [fetchLiveStatus]);
+
+  // Single global real-time subscription for the availability collection
+  useEffect(() => {
+    pb.collection("availability")
+      .subscribe("*", () => {
+        fetchWeekEventsRef.current();
+        fetchLiveStatusRef.current();
+      })
+      .catch((err) => {
+        console.error("Failed to subscribe to availability real-time updates:", err);
+      });
+
+    return () => {
       pb.collection("availability")
-        .unsubscribe("*", listener)
+        .unsubscribe("*")
         .catch((err) => {
-          console.error("Failed to unsubscribe from live status updates:", err);
+          console.error("Failed to unsubscribe from availability real-time updates:", err);
         });
     };
   }, []);
