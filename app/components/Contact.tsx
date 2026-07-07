@@ -58,6 +58,23 @@ export default function Contact() {
   const set = (key: keyof FormData, value: string) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
+  useEffect(() => {
+    const handleSelectSlot = (e: Event) => {
+      const customEvent = e as CustomEvent<{ date: string; time: string; startISO: string; endISO: string }>;
+      const { date, time } = customEvent.detail;
+      setForm((prev) => ({
+        ...prev,
+        subject: "information",
+        info: `Bonjour Cédric,\n\nJ'aimerais solliciter le créneau disponible du ${date} de ${time} indiqué sur votre agenda.\n\n[Précisez le motif de votre message ici]`,
+      }));
+    };
+
+    window.addEventListener("agenda-select-slot", handleSelectSlot);
+    return () => {
+      window.removeEventListener("agenda-select-slot", handleSelectSlot);
+    };
+  }, []);
+
 
   const handleSubmit = async () => {
       const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
