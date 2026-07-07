@@ -1,6 +1,7 @@
 // app/page.tsx
 
 import { About } from "./components/About";
+import Agenda from "./components/Agenda";
 import Contact from "./components/Contact";
 import { Hero } from "./components/Hero";
 import { Navbar } from "./components/Navbar";
@@ -13,8 +14,9 @@ export default function Home() {
       <Hero />
       <About />
       <Projects />
+      <Agenda />
       <Skills />
       <Contact />
     </main>
-  )
+  );
 }

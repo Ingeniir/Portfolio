@@ -1,24 +1,37 @@
 // app/components/Navbar.tsx
 "use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { motion } from "motion/react";
 
-const sections: string[] = ["home", "about", "projects", "skills", "contact"]
+const sections: string[] = [
+  "home",
+  "about",
+  "projects",
+  "agenda",
+  "skills",
+  "contact",
+];
 
-const navLinks = [
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const navLinks: NavLink[] = [
   { label: "Accueil", href: "#home" },
   { label: "À propos", href: "#about" },
   { label: "Projets", href: "#projects" },
+  { label: "Agenda", href: "#agenda" },
   { label: "Compétences", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home')
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,11 +41,12 @@ export const Navbar = () => {
             setActiveSection(entry.target.id);
           }
         });
-      }, {
+      },
+      {
         root: null,
         rootMargin: "-40% 0px -55% 0px",
         threshold: 0,
-      }
+      },
     );
 
     sections.forEach((id) => {
@@ -41,19 +55,21 @@ export const Navbar = () => {
     });
 
     return () => observer.disconnect();
-  }, [])
+  }, []);
 
-    useEffect(() => {
-        document.body.style.overflow = isOpen ? "hidden" : "";
-        return () => { document.body.style.overflow = ""; };
-    }, [isOpen]);
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 768) setIsOpen(false);
-        };
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setIsOpen(false);
+    };
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-background border-b border-[var(--color-border)]">
@@ -92,18 +108,25 @@ export const Navbar = () => {
           `}
         >
           {navLinks.map((link, index) => (
-            <li key={sections[index]} className="w-full text-center md:w-auto text-[--color-strong] bg-[--color-card]">
+            <li
+              key={sections[index]}
+              className="w-full text-center md:w-auto text-[--color-strong] bg-[--color-card]"
+            >
               <a
                 onClick={() => setIsOpen(false)}
                 href={link.href}
                 className={`relative text-lg md:text-sm font-sans tracking-wide no-underline block py-2 hover:text-foreground transition-colors duration-200 ${
-                  activeSection === sections[index] ? "text-foreground" : "text-foreground/70"
+                  activeSection === sections[index]
+                    ? "text-foreground"
+                    : "text-foreground/70"
                 }`}
               >
                 {link.label}
                 <span
                   className={`absolute left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 bottom-1 h-0.5 transition-all duration-300 ease-in-out bg-[var(--color-strong)] ${
-                    activeSection === sections[index] ? "w-full" : "w-0 group-hover:w-full"
+                    activeSection === sections[index]
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
                   }`}
                 />
               </a>
